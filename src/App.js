@@ -1,25 +1,45 @@
-import logo from './logo.svg';
+import React from 'react';
+
+import { 
+  PageBody, 
+} from './AppStyled';
+
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+
 import './App.css';
 
-function App() {
+import Menu from './components/Menu';
+import Header from './components/Header';
+import Footer from './components/Footer';
+
+import HomePage from './pages/Home';
+import AnotacoesPage from './pages/Anotacoes';
+import TrilhasPage from './pages/Trilhas';
+
+export default () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <div className="page-container">
+        <Menu />
+        <PageBody>
+          <Header />
+          <Switch>
+            <Route path="/home">
+                <HomePage />            
+            </Route>
+            <Route path="/anotacoes">
+                <AnotacoesPage />
+            </Route>
+            <Route path="/trilhas">
+                <TrilhasPage />
+            </Route>
+            <Route path="/forum">
+                Forum
+            </Route>
+          </Switch>
+          <Footer />
+        </PageBody>
+      </div>
+    </BrowserRouter> 
   );
 }
-
-export default App;
