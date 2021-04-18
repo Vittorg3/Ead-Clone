@@ -15,6 +15,7 @@ import Footer from './components/Footer';
 import HomePage from './pages/Home';
 import AnotacoesPage from './pages/Anotacoes';
 import TrilhasPage from './pages/Trilhas';
+import CursoPage from './pages/Curso';
 
 export default () => {
   return (
@@ -35,6 +36,9 @@ export default () => {
             </Route>
             <Route path="/forum">
                 Forum
+            </Route>
+            <Route path="/curso/:nameCurso">
+                <CursoPage />
             </Route>
           </Switch>
           <Footer />
