@@ -12,11 +12,16 @@ import {
     PlayTitle,
     CloseModuleArea,
     InfoCourse,
-    ShowModuleButton
+    ShowModuleButton,
+    SearchModuleInput,
+    LineDividing,
+    ModuleArea
 } from './styled';
 
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+
+import ModuleCard from '../../components/ModuleCard';
 
 export default () => {
     const [watched, setWatched] = useState(false);
@@ -75,6 +80,36 @@ export default () => {
 
                         Fechar
                     </CloseModuleArea>
+                    <SearchModuleInput type="search" placeholder="Busca" />
+                    <Title 
+                        style={
+                            {
+                                fontSize: 17, 
+                                fontWeight: 'normal',
+                                marginTop: 17
+                            }
+                        }
+                    >
+                        Conteúdo do curso
+                    </Title>
+                    <LineDividing />
+                    <ModuleArea>
+                        <ModuleCard />
+                        <ModuleCard />
+                        <ModuleCard />
+                        <ModuleCard />
+                        <ModuleCard />
+                        <ModuleCard />
+                        <ModuleCard />
+                        <ModuleCard />
+                        <ModuleCard />
+                        <ModuleCard />
+                        <ModuleCard />
+                        <ModuleCard />
+                        <ModuleCard />
+                        <ModuleCard />
+                        <ModuleCard />
+                    </ModuleArea>
                 </CourseModuleArea>
             </CourseArea>
         </PageArea>

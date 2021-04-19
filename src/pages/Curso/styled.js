@@ -102,3 +102,28 @@ font-family: 'Helvetica';
 font-size: 12px;
 cursor: pointer;
 `;
+
+export const SearchModuleInput = styled.input`
+margin-top: 20px;
+height: 35px;
+border-radius: 5px;
+outline: 0;
+border: 0;
+padding-left: 10px;
+background-color: #202225;
+`;
+
+export const  LineDividing = styled.hr`
+height: 2px;
+background-color: #555555;
+outline: 0;
+border: 0;
+margin-top: 12px;
+`;
+
+export const ModuleArea = styled.div`
+display: flex;
+flex-direction: column;
+flex: 1;
+padding: 17px 0;
+`;
