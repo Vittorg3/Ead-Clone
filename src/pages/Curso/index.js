@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     PageArea,
     CourseArea,
@@ -7,24 +7,74 @@ import {
     CourseProgressArea, 
     Title,
     BarProgress,
-    CoursePlayArea
+    CoursePlayArea,
+    CoursePlayTitleArea,
+    PlayTitle,
+    CloseModuleArea,
+    InfoCourse,
+    ShowModuleButton
 } from './styled';
 
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+
 export default () => {
+    const [watched, setWatched] = useState(false);
+    const [closeModules, setCloseModules] = useState(false);
+
+    const handleCloseModules = () => {
+        setCloseModules(true);
+    }
+
+    const handleShowModules = () => {
+        setCloseModules(false);
+    }
+
     return (
         <PageArea>
             <CourseArea>
-                <CourseVideoArea>
+                <CourseVideoArea moduleArea={closeModules}>
                     <CourseProgressArea>
-                        <Title>ReactJS</Title>
-                        <BarProgress />
+                        <InfoCourse>
+                            <Title>ReactJS</Title>
+                            <BarProgress />
+                        </InfoCourse>
+                        {closeModules && 
+                            <ShowModuleButton onClick={handleShowModules}>Ver Módulos</ShowModuleButton>
+                        }
                     </CourseProgressArea>
                     <CoursePlayArea>
                         <iframe width="99%" height="98%" src="https://www.youtube.com/embed/u9FnmBdBl5k" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </CoursePlayArea>
+                    <CoursePlayTitleArea>
+                        <PlayTitle>Interface do Youtube</PlayTitle>
+                        <CheckCircleIcon 
+                            style={
+                                {
+                                    width: 30, 
+                                    height: 30, 
+                                    color: watched ? '#00FF00' : '#CCCCCC',
+                                    marginLeft: 8
+                                }
+                            } 
+                        />
+                    </CoursePlayTitleArea>
                 </CourseVideoArea>
-                <CourseModuleArea>
+                <CourseModuleArea close={closeModules}>
+                    <CloseModuleArea onClick={handleCloseModules}>
+                        <ArrowForwardIosIcon 
+                            style={
+                                {
+                                    width: 14,
+                                    height: 14,
+                                    color: '#D5D5D6',
+                                    marginRight: 10
+                                }
+                            }
+                        />
 
+                        Fechar
+                    </CloseModuleArea>
                 </CourseModuleArea>
             </CourseArea>
         </PageArea>
