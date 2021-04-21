@@ -1,4 +1,6 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
+
 import { 
     CardArea,
     CardPhoto,
@@ -7,17 +9,23 @@ import {
     Photo
 } from './styled';
 
-export default () => {
+export default ({ img, title, course }) => {
+    const history = useHistory();
+    
+    const handleGoToCourse = () => {
+        history.push(`/curso/${course}`);
+    }
+
     return (
-        <CardArea>
+        <CardArea onClick={handleGoToCourse}>
             <CardPhoto>
                 <Photo 
-                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png"
+                    src={img}
                     alt=""
                 />
             </CardPhoto>
             <CardInfo>
-                <Title>ReactJS</Title>
+                <Title>{title}</Title>
             </CardInfo>
         </CardArea>
     )

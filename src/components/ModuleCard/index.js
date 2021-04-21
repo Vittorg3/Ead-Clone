@@ -15,11 +15,8 @@ import {
 
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
-export default () => {
-    const [listLessons, setListLessons] = useState([
-        {title: 'Criando interface do YouTube', numberLesson: 1},
-        {title: 'Criando interface do Nubank', numberLesson: 2}
-    ]);
+export default ({ numberModule, titleModule, lessons, onWatch, onTitleLesson }) => {
+    const [listLessons, setListLessons] = useState([]);
 
     const [activeLessons, setActiveLessons] = useState(false);
 
@@ -27,26 +24,31 @@ export default () => {
         setActiveLessons(!activeLessons);
     }
 
+    const handleWatchLesson = (url, title) => {
+        onWatch(url);
+        onTitleLesson(title);
+    }
+
     return (
         <ModuleCardArea onClick={handleShowLessons}>
             <ModuleInfoArea>
                 <TitleArea>
-                    <Title>Módulo 1:</Title>
-                    <ModuleName>Introdução Geral</ModuleName>
+                    <Title>Módulo {numberModule}:</Title>
+                    <ModuleName>{titleModule}</ModuleName>
                 </TitleArea>
                 <CountLessonsArea>
-                    {listLessons.length} <CountText>aulas</CountText>
+                    {lessons.length} <CountText>aulas</CountText>
                 </CountLessonsArea>
             </ModuleInfoArea>
             <ModuleLessonsArea active={activeLessons}>
-                {listLessons.map((i, k) => (
-                    <LessonCardArea key={k}>
+                {lessons.map((i, k) => (
+                    <LessonCardArea key={k} onClick={() => handleWatchLesson(i.url, i.title)}>
                         <CheckCircleIcon 
                             style={
                                 {width: 16, height: 16, color: '#B4B4B4'}
                             }
                         />
-                        <NumberLesson>#{i.numberLesson}:</NumberLesson>
+                        <NumberLesson>#{i.numberLessons}:</NumberLesson>
                         <TitleLesson>{i.title}</TitleLesson>
                     </LessonCardArea>
                 ))}

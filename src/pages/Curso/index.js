@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+
+import { reactjs } from '../../fakeBD/courses/courseReact';
+
 import {
     PageArea,
     CourseArea,
@@ -26,6 +29,13 @@ import ModuleCard from '../../components/ModuleCard';
 export default () => {
     const [watched, setWatched] = useState(false);
     const [closeModules, setCloseModules] = useState(false);
+    
+    const [title, setTitle] = useState('');
+
+    const [currentLesson, setCurrentLesson] = useState('');
+
+    const [course, setCourse] = useState(reactjs);
+
 
     const handleCloseModules = () => {
         setCloseModules(true);
@@ -40,19 +50,21 @@ export default () => {
             <CourseArea>
                 <CourseVideoArea moduleArea={closeModules}>
                     <CourseProgressArea>
-                        <InfoCourse>
-                            <Title>ReactJS</Title>
-                            <BarProgress />
-                        </InfoCourse>
+                        {course.map(course => (
+                            <InfoCourse>
+                                <Title>{course.title}</Title>
+                                <BarProgress />
+                            </InfoCourse>
+                        ))}
                         {closeModules && 
                             <ShowModuleButton onClick={handleShowModules}>Ver Módulos</ShowModuleButton>
                         }
                     </CourseProgressArea>
                     <CoursePlayArea>
-                        <iframe width="99%" height="98%" src="https://www.youtube.com/embed/u9FnmBdBl5k" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <iframe width="99%" height="98%" src={currentLesson} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </CoursePlayArea>
                     <CoursePlayTitleArea>
-                        <PlayTitle>Interface do Youtube</PlayTitle>
+                        <PlayTitle>{title}</PlayTitle>
                         <CheckCircleIcon 
                             style={
                                 {
@@ -94,21 +106,18 @@ export default () => {
                     </Title>
                     <LineDividing />
                     <ModuleArea>
-                        <ModuleCard />
-                        <ModuleCard />
-                        <ModuleCard />
-                        <ModuleCard />
-                        <ModuleCard />
-                        <ModuleCard />
-                        <ModuleCard />
-                        <ModuleCard />
-                        <ModuleCard />
-                        <ModuleCard />
-                        <ModuleCard />
-                        <ModuleCard />
-                        <ModuleCard />
-                        <ModuleCard />
-                        <ModuleCard />
+                        {course.map(course => (
+                            course.modules.map((modules, k) => (
+                                <ModuleCard 
+                                    key={k} 
+                                    numberModule={modules.numberModule}
+                                    titleModule={modules.titleModule}
+                                    lessons={modules.lessons}
+                                    onWatch={setCurrentLesson} 
+                                    onTitleLesson={setTitle}
+                                />
+                            ))
+                        ))}
                     </ModuleArea>
                 </CourseModuleArea>
             </CourseArea>

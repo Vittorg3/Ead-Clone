@@ -27,6 +27,7 @@ flex: 1;
 
 export const Photo = styled.img`
 width: 90%;
+height: 90%;
 `;
 
 
