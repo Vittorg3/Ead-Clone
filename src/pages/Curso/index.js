@@ -1,6 +1,4 @@
-import React, { useState } from 'react';
-
-import { reactjs } from '../../fakeBD/courses/courseReact';
+import React, { useState, useEffect } from 'react';
 
 import {
     PageArea,
@@ -25,17 +23,23 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 import ModuleCard from '../../components/ModuleCard';
+import { useParams } from 'react-router';
+import Api from '../../services/Api';
 
 export default () => {
+    const { nameCurso } = useParams();
+
     const [watched, setWatched] = useState(false);
     const [closeModules, setCloseModules] = useState(false);
     
     const [title, setTitle] = useState('');
+    const [titleCourse, setTitleCourse] = useState('');
 
     const [currentLesson, setCurrentLesson] = useState('');
 
-    const [course, setCourse] = useState(reactjs);
+    const [course, setCourse] = useState([]);
 
+    const [courseLoaded, setCourseLoaded] = useState(false);
 
     const handleCloseModules = () => {
         setCloseModules(true);
@@ -45,23 +49,45 @@ export default () => {
         setCloseModules(false);
     }
 
+    useEffect(() => {
+        async function loadCourse() {
+            const courseData = await Api.dataCourse(nameCurso);
+            if(courseData !== false) {
+                setCourse(courseData);
+                setCourseLoaded(true);
+            } else window.location.href = "/home";
+        }
+        loadCourse();
+    }, [])
+
+    useEffect(() => {
+        course.map(course => {
+            setTitle(course.introductionLesson.title);
+            setTitleCourse(course.title);
+            setCurrentLesson(course.introductionLesson.url);
+        });
+
+        return (() => {
+            setTitle('');
+            setCurrentLesson('');
+        })
+    }, [courseLoaded])
+
     return (
         <PageArea>
             <CourseArea>
                 <CourseVideoArea moduleArea={closeModules}>
                     <CourseProgressArea>
-                        {course.map(course => (
                             <InfoCourse>
-                                <Title>{course.title}</Title>
+                                <Title>{titleCourse}</Title>
                                 <BarProgress />
                             </InfoCourse>
-                        ))}
                         {closeModules && 
                             <ShowModuleButton onClick={handleShowModules}>Ver Módulos</ShowModuleButton>
                         }
                     </CourseProgressArea>
                     <CoursePlayArea>
-                        <iframe width="99%" height="98%" src={currentLesson} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <iframe width="99%" height="98%" src={currentLesson} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                     </CoursePlayArea>
                     <CoursePlayTitleArea>
                         <PlayTitle>{title}</PlayTitle>
