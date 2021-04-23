@@ -10,6 +10,8 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 import DirectionsIcon from '@material-ui/icons/Directions';
 import ForumIcon from '@material-ui/icons/Forum';
 
+import auth from '../../helpers/Authentication';
+
 export default () => {
     const history = useHistory();
 
@@ -19,7 +21,7 @@ export default () => {
     const handleOptionClick = (optionName, id) => {
         switch(optionName) {
             case 'home':
-                history.replace('/home');
+                history.replace('/');
                 setActive(id);
             break;
             case 'anotation':
@@ -57,6 +59,8 @@ export default () => {
                 <HomeRoundedIcon style={{width: 30, height: 30, color: '#77797E', marginRight: '5px'}}/>
                     <Title mainClicked={activeMain}>Home</Title>
             </IconArea>
+            {auth.isLogged() && 
+            <>
             <IconArea
                 option={3}
                 onClick={() => handleOptionClick('anotation', 3)}
@@ -81,6 +85,9 @@ export default () => {
                 <ForumIcon style={{width: 30, height: 30, color: '#77797E', marginRight: '5px'}}/>
                 <Title mainClicked={activeMain}>Forum</Title>
             </IconArea>
+            </>
+            }
+            
         </MenuArea>
     );
 }

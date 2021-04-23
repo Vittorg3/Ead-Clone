@@ -111,6 +111,7 @@ outline: 0;
 border: 0;
 padding-left: 10px;
 background-color: #202225;
+color: #fff;
 `;
 
 export const  LineDividing = styled.hr`

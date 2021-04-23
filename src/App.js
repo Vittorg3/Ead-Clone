@@ -4,7 +4,7 @@ import {
   PageBody, 
 } from './AppStyled';
 
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
 import './App.css';
 
@@ -16,6 +16,24 @@ import HomePage from './pages/Home';
 import AnotacoesPage from './pages/Anotacoes';
 import TrilhasPage from './pages/Trilhas';
 import CursoPage from './pages/Curso';
+import LoginPage from './pages/login';
+
+import auth from './helpers/Authentication';
+
+const RoutePrivate = ({children, ...rest}) => (
+    auth.isLogged() === true && (
+      <Route {...rest}>
+        {children}
+      </Route>
+  ) || (
+      window.location.href="/login"
+  )
+);
+
+const Logout = () => {
+  auth.logout();
+  return <Redirect path="/login" />
+}
 
 export default () => {
   return (
@@ -25,23 +43,31 @@ export default () => {
         <PageBody>
           <Header />
           <Switch>
-            <Route path="/home">
+            <RoutePrivate exact path="/">
                 <HomePage />            
-            </Route>
-            <Route path="/anotacoes">
+            </RoutePrivate>
+            <RoutePrivate exact path="/anotacoes">
                 <AnotacoesPage />
-            </Route>
-            <Route path="/trilhas">
+            </RoutePrivate>
+            <RoutePrivate exact path="/trilhas">
                 <TrilhasPage />
-            </Route>
-            <Route path="/forum">
+            </RoutePrivate>
+            <RoutePrivate exact path="/forum">
                 Forum
+            </RoutePrivate>
+            <Route exact path="/login">
+              <LoginPage />
             </Route>
-            <Route path="/curso/:nameCurso">
+            <RoutePrivate exact path="/curso/:nameCurso">
                 <CursoPage />
-            </Route>
+            </RoutePrivate>
+            <RoutePrivate exact path="/logout">
+              <Logout />
+            </RoutePrivate>
           </Switch>
-          <Footer />
+          {auth.isLogged() && 
+            <Footer />
+          }
         </PageBody>
       </div>
     </BrowserRouter> 

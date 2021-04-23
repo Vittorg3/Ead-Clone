@@ -31,15 +31,14 @@ export default () => {
 
     const [watched, setWatched] = useState(false);
     const [closeModules, setCloseModules] = useState(false);
-    
-    const [title, setTitle] = useState('');
-    const [titleCourse, setTitleCourse] = useState('');
-
-    const [currentLesson, setCurrentLesson] = useState('');
+    const [courseLoaded, setCourseLoaded] = useState(false);
 
     const [course, setCourse] = useState([]);
 
-    const [courseLoaded, setCourseLoaded] = useState(false);
+    const [title, setTitle] = useState('');
+    const [titleCourse, setTitleCourse] = useState('');
+    const [currentLesson, setCurrentLesson] = useState('');
+    const [search, setSearch] = useState('');
 
     const handleCloseModules = () => {
         setCloseModules(true);
@@ -58,7 +57,7 @@ export default () => {
             } else window.location.href = "/home";
         }
         loadCourse();
-    }, [])
+    }, []);
 
     useEffect(() => {
         course.map(course => {
@@ -71,7 +70,9 @@ export default () => {
             setTitle('');
             setCurrentLesson('');
         })
-    }, [courseLoaded])
+    }, [courseLoaded]);
+
+    const searchRegex = new RegExp(`/^[${search.toLowerCase()}]*`);
 
     return (
         <PageArea>
@@ -118,7 +119,7 @@ export default () => {
 
                         Fechar
                     </CloseModuleArea>
-                    <SearchModuleInput type="search" placeholder="Busca" />
+                    <SearchModuleInput type="search" placeholder="Busca" onChange={e => setSearch(e.target.value)}/>
                     <Title 
                         style={
                             {
@@ -132,18 +133,36 @@ export default () => {
                     </Title>
                     <LineDividing />
                     <ModuleArea>
-                        {course.map(course => (
-                            course.modules.map((modules, k) => (
-                                <ModuleCard 
-                                    key={k} 
-                                    numberModule={modules.numberModule}
-                                    titleModule={modules.titleModule}
-                                    lessons={modules.lessons}
-                                    onWatch={setCurrentLesson} 
-                                    onTitleLesson={setTitle}
-                                />
+                        {search.trim() != '' && 
+                            course.map(course => (
+                                course.modules.map((modules, k) => {
+                                    if(modules.lessons[k].title.toLowerCase() === search.toLowerCase()) {
+                                        return <ModuleCard 
+                                                    key={k} 
+                                                    numberModule={modules.numberModule}
+                                                    titleModule={modules.titleModule}
+                                                    lessons={modules.lessons}
+                                                    onWatch={setCurrentLesson} 
+                                                    onTitleLesson={setTitle}
+                                                />
+                                    }
+                                })
                             ))
-                        ))}
+                        }
+                        {search.trim() == '' && 
+                            course.map(course => (
+                                course.modules.map((modules, k) => (
+                                    <ModuleCard 
+                                        key={k} 
+                                        numberModule={modules.numberModule}
+                                        titleModule={modules.titleModule}
+                                        lessons={modules.lessons}
+                                        onWatch={setCurrentLesson} 
+                                        onTitleLesson={setTitle}
+                                    />
+                                ))
+                            ))
+                        }
                     </ModuleArea>
                 </CourseModuleArea>
             </CourseArea>
