@@ -17,6 +17,7 @@ import AnotacoesPage from './pages/Anotacoes';
 import TrilhasPage from './pages/Trilhas';
 import CursoPage from './pages/Curso';
 import LoginPage from './pages/login';
+import SuportePage from './pages/Suporte';
 
 import auth from './helpers/Authentication';
 
@@ -52,8 +53,8 @@ export default () => {
             <RoutePrivate exact path="/trilhas">
                 <TrilhasPage />
             </RoutePrivate>
-            <RoutePrivate exact path="/forum">
-                Forum
+            <RoutePrivate exact path="/support">
+                <SuportePage />
             </RoutePrivate>
             <Route exact path="/login">
               <LoginPage />

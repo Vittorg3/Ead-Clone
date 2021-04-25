@@ -8,7 +8,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import DirectionsIcon from '@material-ui/icons/Directions';
-import ForumIcon from '@material-ui/icons/Forum';
+import AnnouncementIcon from '@material-ui/icons/Announcement';
 
 import auth from '../../helpers/Authentication';
 
@@ -32,8 +32,8 @@ export default () => {
                 history.replace('/trilhas');
                 setActive(id);
             break;
-            case 'forum':
-                history.replace('/forum');
+            case 'support':
+                history.replace('/support');
                 setActive(id);
             break;
         }
@@ -79,11 +79,11 @@ export default () => {
             </IconArea>
             <IconArea
                 option={5}
-                onClick={() => handleOptionClick('forum', 5)}
+                onClick={() => handleOptionClick('support', 5)}
                 active={active}
             >
-                <ForumIcon style={{width: 30, height: 30, color: '#77797E', marginRight: '5px'}}/>
-                <Title mainClicked={activeMain}>Forum</Title>
+                <AnnouncementIcon style={{width: 30, height: 30, color: '#77797E', marginRight: '5px'}}/>
+                <Title mainClicked={activeMain}>Suporte</Title>
             </IconArea>
             </>
             }

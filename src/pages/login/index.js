@@ -30,12 +30,14 @@ export default () => {
                         type="email" 
                         placeholder="Digite seu e-mail" 
                         onChange={e => setEmail(e.target.value)}
+                        required
                     />
                     <TitleInput>Senha:</TitleInput>
                     <PasswordInput 
                         type="password" 
                         placeholder="Digite sua senha" 
                         onChange={e => setPassword(e.target.value)}
+                        required
                     />
                     <LoginButton onClick={handleSingIn}>Entrar</LoginButton>
                 </FormArea>

@@ -92,6 +92,7 @@ flex-direction: column;
 flex: 1;
 background-color: #37393E;
 padding: 30px 20px;
+border-radius: 5px;
 `;
 
 export const CloseModuleArea = styled.div`

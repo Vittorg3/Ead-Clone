@@ -49,8 +49,8 @@ cursor: pointer;
 `;
 
 export const AvatarUserArea = styled.div`
-width: 40px;
-height: 40px;
+width: 35px;
+height: 35px;
 border-radius: 50%;
 overflow: hidden;
 `;
