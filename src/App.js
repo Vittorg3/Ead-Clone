@@ -5,6 +5,7 @@ import {
 } from './AppStyled';
 
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import ReactTooltip from 'react-tooltip';
 
 import './App.css';
 
@@ -69,6 +70,7 @@ export default () => {
           {auth.isLogged() && 
             <Footer />
           }
+          <ReactTooltip id="tip-right" place="right" effect="solid" />
         </PageBody>
       </div>
     </BrowserRouter> 

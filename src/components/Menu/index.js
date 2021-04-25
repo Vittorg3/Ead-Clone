@@ -43,6 +43,10 @@ export default () => {
         setActiveMain(!activeMain);
     }
 
+    const dtip ="data-tip";
+    const dfor = "tip-right";
+
+
     return (
         <MenuArea clicked={activeMain}>
             <IconMainArea
@@ -55,6 +59,12 @@ export default () => {
                 option={2} 
                 active={active} 
                 onClick={() => handleOptionClick('home', 2)}
+                {...!activeMain &&
+                    {
+                        ['data-tip']:"Home",
+                        ['data-for']:"tip-right"
+                    }
+                }
             >
                 <HomeRoundedIcon style={{width: 30, height: 30, color: '#77797E', marginRight: '5px'}}/>
                     <Title mainClicked={activeMain}>Home</Title>
@@ -65,6 +75,12 @@ export default () => {
                 option={3}
                 onClick={() => handleOptionClick('anotation', 3)}
                 active={active}
+                {...!activeMain &&
+                    {
+                        ['data-tip']:"Anotações",
+                        ['data-for']:"tip-right"
+                    }
+                }
             >
                 <AssignmentIcon style={{width: 30, height: 30, color: '#77797E', marginRight: '5px'}}/>
                 <Title mainClicked={activeMain}>Anotações</Title>
@@ -73,6 +89,12 @@ export default () => {
                 option={4}
                 onClick={() => handleOptionClick('direction', 4)}
                 active={active}
+                {...!activeMain &&
+                    {
+                        ['data-tip']:"Trilhas",
+                        ['data-for']:"tip-right"
+                    }
+                }
             >
                 <DirectionsIcon style={{width: 30, height: 30, color: '#77797E', marginRight: '5px'}}/>
                 <Title mainClicked={activeMain}>Trilhas</Title>
@@ -81,6 +103,12 @@ export default () => {
                 option={5}
                 onClick={() => handleOptionClick('support', 5)}
                 active={active}
+                {...!activeMain &&
+                    {
+                        ['data-tip']:"Suporte",
+                        ['data-for']:"tip-right"
+                    }
+                }
             >
                 <AnnouncementIcon style={{width: 30, height: 30, color: '#77797E', marginRight: '5px'}}/>
                 <Title mainClicked={activeMain}>Suporte</Title>
