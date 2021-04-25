@@ -70,7 +70,7 @@ export default () => {
           {auth.isLogged() && 
             <Footer />
           }
-          <ReactTooltip id="tip-right" place="right" effect="solid" />
+          <ReactTooltip id="tip-right" place="right" effect="solid" className="tooltipCustom" />
         </PageBody>
       </div>
     </BrowserRouter> 

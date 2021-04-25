@@ -43,10 +43,6 @@ export default () => {
         setActiveMain(!activeMain);
     }
 
-    const dtip ="data-tip";
-    const dfor = "tip-right";
-
-
     return (
         <MenuArea clicked={activeMain}>
             <IconMainArea

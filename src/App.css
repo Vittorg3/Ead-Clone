@@ -12,3 +12,7 @@
   min-height: 100vh;
   background-color: #2F3136;
 }
+
+.tooltipCustom {
+  font-family: 'Helvetica' !important;
+}
