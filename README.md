@@ -6,5 +6,6 @@ __O objetivo desse projeto foi colocar em prática os conhecimentos adquiridos d
 ### foram usados neste projeto: 
 ✔️ **Material-UI**\
 ✔️ **React-Router-Dom**\
-✔️ **React-Tolltip**\
-✔️ **Styled-Components**
+✔️ **React-Tooltip**\
+✔️ **Styled-Components**\
+✔️ **Js-Cookie**
