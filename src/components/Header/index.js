@@ -36,9 +36,9 @@ export default () => {
                             onClick={() => setPanelActive(!panelActive)}
                         >
                         <AvatarUserArea>
-                            <Avatar src="https://media-exp1.licdn.com/dms/image/C4E03AQH3d7wyGBdCJw/profile-displayphoto-shrink_200_200/0/1619127699609?e=1624492800&v=beta&t=kCPr8zrIVjrpgNh70FYIJHxpHiZ73Y4eJsS5OIQjShg" alt=""/>
+                            <Avatar src="https://thumbs.dreamstime.com/b/businessman-icon-vector-male-avatar-profile-image-profile-businessman-icon-vector-male-avatar-profile-image-182095609.jpg" alt=""/>
                         </AvatarUserArea>
-                        <UserName>Enoc</UserName>
+                        <UserName>Tester</UserName>
                         <PanelUserOptions 
                             active={panelActive}
                         >

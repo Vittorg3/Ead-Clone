@@ -33,7 +33,7 @@ export default () => {
                 setActive(id);
             break;
             case 'support':
-                history.replace('/support');
+                history.replace('/suporte');
                 setActive(id);
             break;
         }

@@ -19,6 +19,7 @@ import TrilhasPage from './pages/Trilhas';
 import CursoPage from './pages/Curso';
 import LoginPage from './pages/login';
 import SuportePage from './pages/Suporte';
+import NaoEncontradoPage from './pages/Pagina_404';
 
 import auth from './helpers/Authentication';
 
@@ -54,7 +55,7 @@ export default () => {
             <RoutePrivate exact path="/trilhas">
                 <TrilhasPage />
             </RoutePrivate>
-            <RoutePrivate exact path="/support">
+            <RoutePrivate exact path="/suporte">
                 <SuportePage />
             </RoutePrivate>
             <Route exact path="/login">
@@ -66,6 +67,9 @@ export default () => {
             <RoutePrivate exact path="/logout">
               <Logout />
             </RoutePrivate>
+            <Route path="/*">
+              <NaoEncontradoPage />
+            </Route>
           </Switch>
           {auth.isLogged() && 
             <Footer />
