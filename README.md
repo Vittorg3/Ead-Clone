@@ -9,3 +9,7 @@ __O objetivo desse projeto foi colocar em prática os conhecimentos adquiridos d
 ✔️ **React-Tooltip**\
 ✔️ **Styled-Components**\
 ✔️ **Js-Cookie**
+## 🔖 Requisitos:
+### para executar o projeto da maneira certa, é necessário:
+☑️ **Node | versão 14.16.0 ou acima**\
+☑️ **React | versão 17.0.2 ou acima**
