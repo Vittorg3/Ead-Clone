@@ -22,8 +22,8 @@ __O objetivo desse projeto foi colocar em prática os conhecimentos adquiridos d
 __O projeto realiza uma parte de todas as funções do sistema real que foi usado como referência, como assistir aulas em seus respectivos módulos, e efetuar o login para acessar a plataforma. Para efetuar o login, a API consome dados predefinido como forma de simular um banco de dados em produção; tal como para assistir os módulos, que também possui dados já predefinidos para o consumo da API.__
 
 - [x] **Autentificação com Login do usuário**
-- [x] **Rotas privadas**
-- [x] **Acessar conteúdo dos cursos**
-- [x] **Assistir video aulas**
-- [ ] **Integração com backend em NodeJS**
-- [ ] **Cadastro dos cursos e módulos**
+- [x] **Controle de rotas**
+- [x] **Acesso ao conteúdo dos cursos**
+- [x] **Assistir as aulas**
+- [ ] **Consumir backend em NodeJS**
+- [ ] **Cadastrar os cursos e módulos**
