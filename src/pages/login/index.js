@@ -8,7 +8,8 @@ import {
     TitleInput,
     EmailInput,
     PasswordInput,
-    LoginButton
+    LoginButton,
+    ExternalLink
 } from './styled';
 
 export default () => {
@@ -41,6 +42,7 @@ export default () => {
                     />
                     <LoginButton onClick={handleSingIn}>Entrar</LoginButton>
                 </FormArea>
+                <ExternalLink href="/inscricao">inscreva-se</ExternalLink>
             </LoginArea>
         </PageArea>
     )

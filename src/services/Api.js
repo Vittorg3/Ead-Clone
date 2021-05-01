@@ -1,9 +1,13 @@
 import Cookies from 'js-cookie';
 
+import api from '../services/Axios';
+
 import { reactjs } from '../fakeBD/courses/courseReact';
 import { node } from '../fakeBD/courses/courseNode';
 
 import { user } from '../fakeBD/user/User';
+
+import { useUserContext } from '../contexts/UserContextHook';
 
 export default {
     dataCourse: async (nameCourse) => {
@@ -19,10 +23,24 @@ export default {
         }  
     },
     Signin: async (email, password) => {
-        if(user[0].email.toLowerCase() === email.toLowerCase() && user[0].senha.toLowerCase() === password.toLowerCase()){
-            Cookies.set('token-ead', 'ksjdkajsdkajsdkjasd1212', {expires: 1});
-            return true;
+        const res = await api.post('api/user/signin', {email, password});
+        if(res.data.token) {
+            Cookies.set('token-ead', res.data.token);
+            Cookies.set('ead-id', res.data.user.id);
+            delete res.data.user.id
             
-        } else return false;
+            localStorage.setItem('user', JSON.stringify(res.data.user)); //salvando usuario no localsto
+            return true;
+        }
+
+        return false;
+    }, 
+    Signup: async(email, password, name) => {
+        const res = await api.post('api/user/signup', {email, password, name});
+        if(res.data == true) {
+            return true;
+        }
+
+        return false;
     }
 }

@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useUserContext } from '../../contexts/UserContextHook';
+
 import { 
     HeaderArea, 
     HeaderContent, 
@@ -20,6 +22,8 @@ import auth from '../../helpers/Authentication';
 export default () => {
     const [panelActive, setPanelActive] = useState(false);
 
+    const [state, dispatch] = useUserContext();//pegando o nome do reducer
+
     return (
         <HeaderArea>
             <HeaderContent>
@@ -38,7 +42,7 @@ export default () => {
                         <AvatarUserArea>
                             <Avatar src="https://thumbs.dreamstime.com/b/businessman-icon-vector-male-avatar-profile-image-profile-businessman-icon-vector-male-avatar-profile-image-182095609.jpg" alt=""/>
                         </AvatarUserArea>
-                        <UserName>Tester</UserName>
+                        <UserName>{state.name}</UserName>
                         <PanelUserOptions 
                             active={panelActive}
                         >
