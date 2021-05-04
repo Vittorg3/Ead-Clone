@@ -2,7 +2,8 @@ import { createContext, useContext, useReducer } from 'react';
 
 const initialState = {
     name: '',
-    email: ''
+    email: '',
+    avatar: ''
 };
 
 const stateLocal = JSON.parse(localStorage.getItem('user'));
@@ -19,7 +20,8 @@ const reducer = (state = initialState, action) => {
             return  {
                 ...state, 
                 name: action.payload.name,
-                email: action.payload.email
+                email: action.payload.email,
+                avatar: action.payload.avatar
             }
         break;
     }

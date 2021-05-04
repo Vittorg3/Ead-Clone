@@ -40,13 +40,13 @@ export default () => {
                             onClick={() => setPanelActive(!panelActive)}
                         >
                         <AvatarUserArea>
-                            <Avatar src="https://thumbs.dreamstime.com/b/businessman-icon-vector-male-avatar-profile-image-profile-businessman-icon-vector-male-avatar-profile-image-182095609.jpg" alt=""/>
+                            <Avatar src={state.avatar == 'default' ? 'https://thumbs.dreamstime.com/b/businessman-icon-vector-male-avatar-profile-image-profile-businessman-icon-vector-male-avatar-profile-image-182095609.jpg' : state.avatar} alt=""/>
                         </AvatarUserArea>
                         <UserName>{state.name}</UserName>
                         <PanelUserOptions 
                             active={panelActive}
                         >
-                            <ExternalLink>Configurações</ExternalLink>
+                            <ExternalLink href="/perfil">Configurações</ExternalLink>
                             <ExternalLink href="/logout">Sair</ExternalLink>
                         </PanelUserOptions>
                         </HeaderPanelUser>

@@ -21,6 +21,7 @@ import CursoPage from './pages/Curso';
 import LoginPage from './pages/login';
 import SuportePage from './pages/Suporte';
 import InscricaoPage from './pages/Inscricao';
+import PerfilPage from './pages/Perfil';
 import NaoEncontradoPage from './pages/Pagina_404';
 
 import auth from './helpers/Authentication';
@@ -66,6 +67,9 @@ export default () => {
               </Route>
               <RoutePrivate exact path="/curso/:nameCurso">
                   <CursoPage />
+              </RoutePrivate>
+              <RoutePrivate axact path="/perfil">
+                <PerfilPage />               
               </RoutePrivate>
               <RoutePrivate exact path="/logout">
                 <Logout />

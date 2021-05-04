@@ -35,7 +35,8 @@ export default () => {
                 type: 'setAll',
                 payload: {
                     name: dataUser.name,
-                    email: dataUser.email
+                    email: dataUser.email,
+                    avatar: dataUser.avatar
                 }
             });
         }

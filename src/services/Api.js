@@ -1,4 +1,4 @@
-import Cookies from 'js-cookie';
+import Cookies, { get } from 'js-cookie';
 
 import api from '../services/Axios';
 
@@ -35,12 +35,57 @@ export default {
 
         return false;
     }, 
-    Signup: async(email, password, name) => {
+    Signup: async (email, password, name) => {
         const res = await api.post('api/user/signup', {email, password, name});
         if(res.data == true) {
             return true;
         }
 
         return false;
+    },
+    UserInfo: async () => {
+        const token = await Cookies.get('token-ead');
+        const id = await Cookies.get('ead-id');
+
+        if(token && id) {
+            const res = await api.get('api/user/me', {
+                params:{
+                    token, 
+                    id
+                }
+            }); 
+            return res.data;
+        }
+        
+        return false;
+    },
+    editUser: async (fieldsChanged) => {
+        const token = await Cookies.get('token-ead');
+        const id = await Cookies.get('ead-id');
+
+        const { name, password } = fieldsChanged;
+            
+        const res = await api.post('api/user/me', {token, id, name, password});
+        return res;
+
+    },
+    uploadAvatar: async (avatar) => {
+        const token = await Cookies.get('token-ead');
+        const id = await Cookies.get('ead-id');
+
+        const data = await new FormData();
+        await data.append("token", token);
+        await data.append("id", id);
+        await data.append("avatar", avatar);
+        //não está salvando vindo do front
+
+        if(token && id) {
+            const res = await api.post('api/user/avatar', data, {
+                headers: {
+                    Authorization: token
+                }
+            });
+            return res;
+        }
     }
 }
