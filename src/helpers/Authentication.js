@@ -7,6 +7,7 @@ export default {
     },
     logout: () => {
         Cookies.remove('token-ead');
+        localStorage.removeItem('user');
         return true;
     }
 };

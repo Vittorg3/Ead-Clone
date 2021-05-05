@@ -11,23 +11,14 @@ import {
 import CourseCard from '../../components/CourseCard';
 import { useUserContext } from '../../contexts/UserContextHook';
 
+import Api from '../../services/Api';
+
 export default () => {
     const [state, dispatch] = useUserContext();
-    const [courses, setCourses] = useState([
-        {
-            title: 'ReactJS',
-            course: 'react',
-            img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png'
-        },
-        {
-            title: 'Node',
-            course: 'node',
-            img: 'https://cdn.iconscout.com/icon/free/png-256/node-js-1174925.png'
-        },
-    ]);
+    const [courses, setCourses] = useState([]);
 
-    async function loadingUser() { //salvando os dados no context
-        if(localStorage.getItem('user')) { //procurar um jeito de salvar o context 
+    async function loadingUser() { 
+        if(localStorage.getItem('user')) { 
             const user = await localStorage.getItem('user');
             const dataUser = await JSON.parse(user);
 
@@ -42,8 +33,16 @@ export default () => {
         }
     };
 
+    async function coursesAvailable() {
+        const available = await Api.courseAvailable();
+        if(available != undefined) {
+            setCourses(available);
+        }
+    }
+
     useEffect(() => {
         loadingUser();
+        coursesAvailable();
     }, [])
 
 

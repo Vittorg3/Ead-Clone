@@ -15,7 +15,7 @@ import {
 
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
-export default ({ numberModule, titleModule, lessons, onWatch, onTitleLesson }) => {
+export default ({ numberModule, titleModule, lessons, onWatch, onTitleLesson, change }) => {
     const [listLessons, setListLessons] = useState([]);
 
     const [activeLessons, setActiveLessons] = useState(false);
@@ -27,6 +27,7 @@ export default ({ numberModule, titleModule, lessons, onWatch, onTitleLesson }) 
     const handleWatchLesson = (url, title) => {
         onWatch(url);
         onTitleLesson(title);
+        change(true);
     }
 
     return (

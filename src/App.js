@@ -68,6 +68,9 @@ export default () => {
               <RoutePrivate exact path="/curso/:nameCurso">
                   <CursoPage />
               </RoutePrivate>
+              <RoutePrivate exact path="/curso/:nameCurso/:nameAula">
+                  <CursoPage />
+              </RoutePrivate>
               <RoutePrivate axact path="/perfil">
                 <PerfilPage />               
               </RoutePrivate>

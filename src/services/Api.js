@@ -2,34 +2,44 @@ import Cookies, { get } from 'js-cookie';
 
 import api from '../services/Axios';
 
-import { reactjs } from '../fakeBD/courses/courseReact';
-import { node } from '../fakeBD/courses/courseNode';
-
-import { user } from '../fakeBD/user/User';
-
 import { useUserContext } from '../contexts/UserContextHook';
 
 export default {
+    courseAvailable: async () => {
+        const token = Cookies.get('token-ead');
+
+        if(token) {
+            const res = await api.get('api/course/available', {
+                headers: {
+                    Authorization: token
+                }
+            })
+            
+            return res.data.available;
+        }
+    },
     dataCourse: async (nameCourse) => {
-        switch(nameCourse) {
-            case 'react':
-                return reactjs; 
-            break;
-            case 'node':
-                return node;
-            break;
-            default:
-            return false;
-        }  
+        const token = Cookies.get('token-ead');
+
+        if(token) {
+            const res = await api.get(`api/course/${nameCourse}`, {
+                headers: {
+                    Authorization: token
+                }
+            })
+    
+            return res.data.course;
+        }
+        
     },
     Signin: async (email, password) => {
         const res = await api.post('api/user/signin', {email, password});
         if(res.data.token) {
-            Cookies.set('token-ead', res.data.token);
-            Cookies.set('ead-id', res.data.user.id);
+            Cookies.set('token-ead', res.data.token, {expires: 86400});
+            Cookies.set('ead-id', res.data.user.id, {expires: 86400});
             delete res.data.user.id
             
-            localStorage.setItem('user', JSON.stringify(res.data.user)); //salvando usuario no localsto
+            localStorage.setItem('user', JSON.stringify(res.data.user));
             return true;
         }
 

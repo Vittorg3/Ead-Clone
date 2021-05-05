@@ -27,7 +27,7 @@ import { useParams } from 'react-router';
 import Api from '../../services/Api';
 
 export default () => {
-    const { nameCurso } = useParams();
+    const { nameCurso, nameAula } = useParams();
 
     const [watched, setWatched] = useState(false);
     const [closeModules, setCloseModules] = useState(false);
@@ -37,8 +37,15 @@ export default () => {
 
     const [title, setTitle] = useState('');
     const [titleCourse, setTitleCourse] = useState('');
+
     const [currentLesson, setCurrentLesson] = useState('');
+    const [currentLessonQuery, setCurrentLessonQuery] = useState(`http://localhost:3333/api/video/${nameCurso}/${nameAula}`);
+
     const [search, setSearch] = useState('');
+
+    const [videoLoaded, setVideoLoaded] = useState(false);
+
+    const [lessonChanged, setLessonChanged] = useState(false);
 
     const handleCloseModules = () => {
         setCloseModules(true);
@@ -48,22 +55,28 @@ export default () => {
         setCloseModules(false);
     }
 
+    const changeLesson = () => {
+        window.location.href=`/curso/${nameCurso}/${currentLesson}`;
+    }
+
     useEffect(() => {
         async function loadCourse() {
             const courseData = await Api.dataCourse(nameCurso);
-            if(courseData !== false) {
-                setCourse(courseData);
+            if(courseData != undefined) {
+                setCourse([courseData]);
                 setCourseLoaded(true);
             } else window.location.href = "/home";
         }
         loadCourse();
     }, []);
+    
 
     useEffect(() => {
         course.map(course => {
-            setTitle(course.introductionLesson.title);
+            setTitle(course.introduction.title);
             setTitleCourse(course.title);
-            setCurrentLesson(course.introductionLesson.url);
+            setCurrentLesson('http://localhost:3333/api/video/' + course.introduction.url);
+            setVideoLoaded(true);
         });
 
         return (() => {
@@ -72,7 +85,11 @@ export default () => {
         })
     }, [courseLoaded]);
 
-    const searchRegex = new RegExp(`/^[${search.toLowerCase()}]*`);
+    useEffect(() => {
+        if(lessonChanged != false) {
+            changeLesson();
+        }
+    }, [lessonChanged])
 
     return (
         <PageArea>
@@ -88,7 +105,11 @@ export default () => {
                         }
                     </CourseProgressArea>
                     <CoursePlayArea>
-                        <iframe width="99%" height="98%" src={currentLesson} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                    {videoLoaded && 
+                        <video width="98%" height="98%" controls>
+                            <source src={nameAula != undefined ? currentLessonQuery : currentLesson} type="video/mp4"></source>
+                        </video>
+                    }  
                     </CoursePlayArea>
                     <CoursePlayTitleArea>
                         <PlayTitle>{title}</PlayTitle>
@@ -144,6 +165,7 @@ export default () => {
                                                     lessons={modules.lessons}
                                                     onWatch={setCurrentLesson} 
                                                     onTitleLesson={setTitle}
+                                                    change={setLessonChanged}
                                                 />
                                     }
                                 })
@@ -159,6 +181,7 @@ export default () => {
                                         lessons={modules.lessons}
                                         onWatch={setCurrentLesson} 
                                         onTitleLesson={setTitle}
+                                        change={setLessonChanged}
                                     />
                                 ))
                             ))
