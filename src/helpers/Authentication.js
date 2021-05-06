@@ -9,5 +9,14 @@ export default {
         Cookies.remove('token-ead');
         localStorage.removeItem('user');
         return true;
+    },
+    adminIsLogged: () => {
+        const token = Cookies.get('token-admin-ead');
+        return token ? true : false;
+    },
+    adminLogout: () => {
+        Cookies.remove('token-admin-ead');
+        localStorage.removeItem('admin');
+        return true;
     }
 };

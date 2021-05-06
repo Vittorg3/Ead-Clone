@@ -87,7 +87,6 @@ export default {
         await data.append("token", token);
         await data.append("id", id);
         await data.append("avatar", avatar);
-        //não está salvando vindo do front
 
         if(token && id) {
             const res = await api.post('api/user/avatar', data, {
@@ -97,5 +96,19 @@ export default {
             });
             return res;
         }
+    },
+    signinAdmin: async (email, password) => {
+        const res = await api.post('api/admin/signin', {email, password});
+        if(res.data.user) {
+            await Cookies.set('token-admin-ead', res.data.user.token, {expires: 86400});
+            await Cookies.set('ead-admin-id', res.data.user.id, {expires: 86400});
+            delete res.data.user.id;
+
+            localStorage.setItem('admin', JSON.stringify(res.data.user));
+
+            return true;
+        }
+
+        return false;
     }
 }
