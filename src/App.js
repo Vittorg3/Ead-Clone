@@ -24,8 +24,6 @@ import InscricaoPage from './pages/Inscricao';
 import PerfilPage from './pages/Perfil';
 import NaoEncontradoPage from './pages/Pagina_404';
 
-import LoginAdminPage from './pages/pages_admin/login';
-
 import auth from './helpers/Authentication';
 
 const RoutePrivate = ({children, ...rest}) => (
@@ -38,13 +36,13 @@ const RoutePrivate = ({children, ...rest}) => (
   )
 );
 
-const RouteAdminPrivate = ({children, ...rest}) => (
-  auth.adminIsLogged() === true && (
+const RouteAdmin = ({children, ...rest}) => (
+  auth.isAdmin() === true && (
     <Route {...rest}>
       {children}
     </Route>
   ) || (
-    window.location.href="/admin/login"
+    window.location.href="/"
   )
 );
 
@@ -92,12 +90,10 @@ export default () => {
               <Route path="/inscricao">
                 <InscricaoPage />
               </Route>
-              <Route exact path="/admin/login">
-                <LoginAdminPage />
-              </Route>
-              <RouteAdminPrivate exact path="/admin">
-                <h1>Bem vindo ADMIN</h1>
-              </RouteAdminPrivate>
+              
+              <RouteAdmin exact path="/adicionar/curso">
+                <h1>Adicionar Curso</h1>
+              </RouteAdmin>
               <Route path="/*">
                 <NaoEncontradoPage />
               </Route>

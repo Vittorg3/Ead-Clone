@@ -10,6 +10,8 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 import DirectionsIcon from '@material-ui/icons/Directions';
 import AnnouncementIcon from '@material-ui/icons/Announcement';
 
+import PersonalVideoIcon from '@material-ui/icons/PersonalVideo';
+
 import auth from '../../helpers/Authentication';
 
 export default () => {
@@ -36,8 +38,13 @@ export default () => {
                 history.replace('/suporte');
                 setActive(id);
             break;
+            case 'add couse': 
+                history.replace('/adicionar/curso');
+                setActive(id);
+            break;
         }
     }
+
 
     const handleClickButtonMain = () => {
         setActiveMain(!activeMain);
@@ -110,6 +117,22 @@ export default () => {
                 <Title mainClicked={activeMain}>Suporte</Title>
             </IconArea>
             </>
+            }
+            {auth.isAdmin() && 
+                <IconArea
+                    option={6}
+                    onClick={() => handleOptionClick('add couse', 5)}
+                    active={active}
+                    {...!activeMain &&
+                        {
+                            ['data-tip']:"Adicionar Curso",
+                            ['data-for']:"tip-right"
+                        }
+                    }
+                >
+                    <PersonalVideoIcon style={{width: 30, height: 30, color: '#77797E', marginRight: '5px'}}/>
+                    <Title mainClicked={activeMain}>Adicionar Curso</Title>
+                </IconArea>
             }
             
         </MenuArea>

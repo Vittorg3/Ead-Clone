@@ -37,7 +37,10 @@ export default {
         if(res.data.token) {
             Cookies.set('token-ead', res.data.token, {expires: 86400});
             Cookies.set('ead-id', res.data.user.id, {expires: 86400});
-            delete res.data.user.id
+            Cookies.set('perm', res.data.user.perm, {expires: 84600});
+            
+            delete res.data.user.id;
+            delete res.data.user.perm;
             
             localStorage.setItem('user', JSON.stringify(res.data.user));
             return true;
@@ -96,19 +99,5 @@ export default {
             });
             return res;
         }
-    },
-    signinAdmin: async (email, password) => {
-        const res = await api.post('api/admin/signin', {email, password});
-        if(res.data.user) {
-            await Cookies.set('token-admin-ead', res.data.user.token, {expires: 86400});
-            await Cookies.set('ead-admin-id', res.data.user.id, {expires: 86400});
-            delete res.data.user.id;
-
-            localStorage.setItem('admin', JSON.stringify(res.data.user));
-
-            return true;
-        }
-
-        return false;
     }
 }

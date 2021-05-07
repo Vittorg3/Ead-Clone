@@ -7,16 +7,20 @@ export default {
     },
     logout: () => {
         Cookies.remove('token-ead');
+        Cookies.remove('token-ead');
+        Cookies.remove('perm');
+        
         localStorage.removeItem('user');
         return true;
     },
-    adminIsLogged: () => {
-        const token = Cookies.get('token-admin-ead');
-        return token ? true : false;
-    },
-    adminLogout: () => {
-        Cookies.remove('token-admin-ead');
-        localStorage.removeItem('admin');
-        return true;
+    isAdmin: () => {
+        const admin = Cookies.get('perm');
+        if(admin) {
+            if(admin == 'true') {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 };

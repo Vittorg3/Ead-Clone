@@ -72,12 +72,20 @@ export default () => {
     
 
     useEffect(() => {
-        course.map(course => {
-            setTitle(course.introduction.title);
-            setTitleCourse(course.title);
-            setCurrentLesson('http://localhost:3333/api/video/' + course.introduction.url);
+        if(!nameAula) {
+            course.map(course => {
+                setTitle(course.introduction.title);
+                setTitleCourse(course.title);
+                setCurrentLesson('http://localhost:3333/api/video/' + course.introduction.url);
+                setVideoLoaded(true);
+            });
+
+        } else {
+            const name = nameAula[0].toUpperCase() + nameAula.substr(1);
+            setTitle(name.replace(/-/g, " "));
+            setTitleCourse(nameCurso);
             setVideoLoaded(true);
-        });
+        }
 
         return (() => {
             setTitle('');
