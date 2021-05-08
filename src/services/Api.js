@@ -37,8 +37,11 @@ export default {
         if(res.data.token) {
             Cookies.set('token-ead', res.data.token, {expires: 86400});
             Cookies.set('ead-id', res.data.user.id, {expires: 86400});
-            Cookies.set('perm', res.data.user.perm, {expires: 84600});
-            
+
+            if(res.data.user.perm) {
+                Cookies.set('perm', res.data.user.perm, {expires: 84600});
+            }
+
             delete res.data.user.id;
             delete res.data.user.perm;
             

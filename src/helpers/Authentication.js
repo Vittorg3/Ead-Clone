@@ -7,9 +7,9 @@ export default {
     },
     logout: () => {
         Cookies.remove('token-ead');
-        Cookies.remove('token-ead');
+        Cookies.remove('ead-id');
         Cookies.remove('perm');
-        
+
         localStorage.removeItem('user');
         return true;
     },

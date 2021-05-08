@@ -24,26 +24,28 @@ import InscricaoPage from './pages/Inscricao';
 import PerfilPage from './pages/Perfil';
 import NaoEncontradoPage from './pages/Pagina_404';
 
+import PainelPage from './pages/pages_admin/Painel';
+
 import auth from './helpers/Authentication';
 
 const RoutePrivate = ({children, ...rest}) => (
-    auth.isLogged() === true && (
+    auth.isLogged() === true && ((
       <Route {...rest}>
         {children}
       </Route>
   ) || (
       window.location.href="/login"
-  )
+  ))
 );
 
 const RouteAdmin = ({children, ...rest}) => (
-  auth.isAdmin() === true && (
+  auth.isAdmin() === true && ((
     <Route {...rest}>
       {children}
     </Route>
   ) || (
     window.location.href="/"
-  )
+  ))
 );
 
 const Logout = () => {
@@ -91,8 +93,8 @@ export default () => {
                 <InscricaoPage />
               </Route>
               
-              <RouteAdmin exact path="/adicionar/curso">
-                <h1>Adicionar Curso</h1>
+              <RouteAdmin exact path="/painel">
+                <PainelPage />
               </RouteAdmin>
               <Route path="/*">
                 <NaoEncontradoPage />
