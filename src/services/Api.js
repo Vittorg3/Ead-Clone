@@ -102,5 +102,17 @@ export default {
             });
             return res;
         }
+    },
+    createCourse: async (data) => {
+        const token = await Cookies.get('token-ead');
+        const id = await Cookies.get('ead-id');
+
+        await data.append('token', token);
+        await data.append('id', id);
+
+        if(token && id) {
+            const res = await api.post('api/admin/course', data);
+            return res.data;
+        }
     }
 }

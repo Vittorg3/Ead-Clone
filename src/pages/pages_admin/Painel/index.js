@@ -1,4 +1,7 @@
 import React from 'react';
+
+import { useHistory } from 'react-router-dom';
+
 import {
     PageArea,
     PanelArea,
@@ -18,14 +21,24 @@ const configPropertyIcon = {
 const colorHover = 'purple';
 
 export default () => {
+    const history = useHistory();
+
+    const handleToAddCourse = () => {
+        history.push('/adicionar/curso');
+    };
+
+    const handleToAddModule = () => {
+        history.push('/adicionar/modulo');
+    };
+
     return (
         <PageArea>
             <PanelArea>
-                <OptionPanel>
+                <OptionPanel onClick={handleToAddCourse}>
                     <OndemandVideoIcon style={configPropertyIcon} />
                     <OptionDescription>Adicionar Curso</OptionDescription>
                 </OptionPanel>
-                <OptionPanel>
+                <OptionPanel onClick={handleToAddModule}>
                     <AirplayIcon style={configPropertyIcon}/>
                     <OptionDescription>Adicionar Módulo</OptionDescription>
                 </OptionPanel>

@@ -59,6 +59,7 @@ export default () => {
                                     title={i.title} 
                                     course={i.course}
                                     img={i.img}
+                                    status={i.status}
                                 />
                             ))
                         }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { 
@@ -6,18 +6,32 @@ import {
     CardPhoto,
     CardInfo,
     Title,
-    Photo
+    Photo,
+    Alert
 } from './styled';
 
-export default ({ img, title, course }) => {
+export default ({ img, title, course, status }) => {
     const history = useHistory();
+
+    const [available, setAvailable] = useState(false);
     
     const handleGoToCourse = () => {
-        history.push(`/curso/${course}`);
+        if(status != 'indisponivel'){
+            history.push(`/curso/${course}`);
+            return;
+        }
+
+        setAvailable(true);
+        setTimeout(() => {
+            setAvailable(false);
+        }, 2000)
     }
 
     return (
-        <CardArea onClick={handleGoToCourse}>
+        <CardArea 
+            onClick={handleGoToCourse}
+            status={status}
+        >
             <CardPhoto>
                 <Photo 
                     src={img}
@@ -26,6 +40,11 @@ export default ({ img, title, course }) => {
             </CardPhoto>
             <CardInfo>
                 <Title>{title}</Title>
+                <Alert
+                    show={available}
+                >
+                    curso indisponivel no momento
+                </Alert>
             </CardInfo>
         </CardArea>
     )

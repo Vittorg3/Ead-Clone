@@ -25,33 +25,34 @@ import PerfilPage from './pages/Perfil';
 import NaoEncontradoPage from './pages/Pagina_404';
 
 import PainelPage from './pages/pages_admin/Painel';
+import AdicionarCursoPage from './pages/pages_admin/AdicionarCurso';
 
 import auth from './helpers/Authentication';
 
 const RoutePrivate = ({children, ...rest}) => (
-    auth.isLogged() === true && ((
+    auth.isLogged() === true && (
       <Route {...rest}>
         {children}
       </Route>
   ) || (
       window.location.href="/login"
-  ))
+  )
 );
 
 const RouteAdmin = ({children, ...rest}) => (
-  auth.isAdmin() === true && ((
+  auth.isAdmin() === true && (
     <Route {...rest}>
       {children}
     </Route>
   ) || (
     window.location.href="/"
-  ))
+  )
 );
 
 const Logout = () => {
   auth.logout();
   return <Redirect path="/login" />
-}
+};
 
 export default () => {
   return (
@@ -95,6 +96,12 @@ export default () => {
               
               <RouteAdmin exact path="/painel">
                 <PainelPage />
+              </RouteAdmin>
+              <RouteAdmin exact path="/adicionar/curso">
+                <AdicionarCursoPage />
+              </RouteAdmin>
+              <RouteAdmin exact path="/adicionar/modulo">
+                <h1>add m</h1>
               </RouteAdmin>
               <Route path="/*">
                 <NaoEncontradoPage />

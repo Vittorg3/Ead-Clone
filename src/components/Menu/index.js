@@ -77,6 +77,12 @@ export default () => {
             case '/painel':
                 setActive(6);
             break;
+            case '/curso':
+                setActive(6);
+            break;
+            case '/modulo':
+                setActive(6);
+            break;
         }
     }, []);
 
