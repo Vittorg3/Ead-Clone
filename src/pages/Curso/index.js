@@ -174,6 +174,7 @@ export default () => {
                                                     onWatch={setCurrentLesson} 
                                                     onTitleLesson={setTitle}
                                                     change={setLessonChanged}
+                                                    onlyView={false}
                                                 />
                                     }
                                 })
@@ -190,6 +191,7 @@ export default () => {
                                         onWatch={setCurrentLesson} 
                                         onTitleLesson={setTitle}
                                         change={setLessonChanged}
+                                        onlyView={false}
                                     />
                                 ))
                             ))

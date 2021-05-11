@@ -8,7 +8,7 @@ align-items: center;
 width: 200px;
 height: 200px;
 margin-top: 10px;
-background-color: rgba(0, 0, 0, 0.2);
+background-color: rgba(0, 0, 0, 0.5);
 padding: 20px;
 cursor: pointer;
 transition: all ease .2s;

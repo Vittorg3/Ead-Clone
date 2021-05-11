@@ -15,7 +15,7 @@ import {
 
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
-export default ({ numberModule, titleModule, lessons, onWatch, onTitleLesson, change }) => {
+export default ({ numberModule, titleModule, lessons, onWatch, onTitleLesson, change, onlyView }) => {
     const [listLessons, setListLessons] = useState([]);
 
     const [activeLessons, setActiveLessons] = useState(false);
@@ -41,7 +41,8 @@ export default ({ numberModule, titleModule, lessons, onWatch, onTitleLesson, ch
                     {lessons.length} <CountText>aulas</CountText>
                 </CountLessonsArea>
             </ModuleInfoArea>
-            <ModuleLessonsArea active={activeLessons}>
+            {onlyView === false &&
+                <ModuleLessonsArea active={activeLessons}>
                 {lessons.map((i, k) => (
                     <LessonCardArea key={k} onClick={() => handleWatchLesson(i.url, i.title)}>
                         <CheckCircleIcon 
@@ -54,6 +55,7 @@ export default ({ numberModule, titleModule, lessons, onWatch, onTitleLesson, ch
                     </LessonCardArea>
                 ))}
             </ModuleLessonsArea>
+            }
         </ModuleCardArea>
     )
 }

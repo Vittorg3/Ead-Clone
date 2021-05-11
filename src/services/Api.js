@@ -32,6 +32,18 @@ export default {
         }
         
     },
+    dataModule: async (nameCourse) => {
+        const token = Cookies.get('token-ead');
+        const title = nameCourse.toLowerCase();
+
+        if(token) {
+            const res = await api.post('api/admin/course/modules', {
+              token, title
+            });
+
+            return res.data;
+        }
+    },
     Signin: async (email, password) => {
         const res = await api.post('api/user/signin', {email, password});
         if(res.data.token) {

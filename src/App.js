@@ -26,6 +26,7 @@ import NaoEncontradoPage from './pages/Pagina_404';
 
 import PainelPage from './pages/pages_admin/Painel';
 import AdicionarCursoPage from './pages/pages_admin/AdicionarCurso';
+import AdicionarModuloPage from './pages/pages_admin/AdicionarModulo';
 
 import auth from './helpers/Authentication';
 
@@ -101,7 +102,7 @@ export default () => {
                 <AdicionarCursoPage />
               </RouteAdmin>
               <RouteAdmin exact path="/adicionar/modulo">
-                <h1>add m</h1>
+                <AdicionarModuloPage />
               </RouteAdmin>
               <Route path="/*">
                 <NaoEncontradoPage />
