@@ -25,6 +25,7 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import ModuleCard from '../../components/ModuleCard';
 import { useParams } from 'react-router';
 import Api from '../../services/Api';
+import { ContactSupportOutlined } from '@material-ui/icons';
 
 export default () => {
     const { nameCurso, nameAula } = useParams();
@@ -63,6 +64,10 @@ export default () => {
         async function loadCourse() {
             const courseData = await Api.dataCourse(nameCurso);
             if(courseData != undefined) {
+                courseData.modules.sort((a, b) => {
+                    return a.numberModule > b.numberModule ? 1 : a.numberModule < b.numberModule ? -1 : 0;
+                });
+
                 setCourse([courseData]);
                 setCourseLoaded(true);
             } else window.location.href = "/home";
@@ -82,7 +87,8 @@ export default () => {
 
         } else {
             const name = nameAula[0].toUpperCase() + nameAula.substr(1);
-            setTitle(name.replace(/-/g, " "));
+            const nameWithoutNumber = name.replace(/[0-999]/g, '');
+            setTitle(nameWithoutNumber.replace(/-/g, " "));
             setTitleCourse(nameCurso);
             setVideoLoaded(true);
         }

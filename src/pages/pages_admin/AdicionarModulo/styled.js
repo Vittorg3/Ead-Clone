@@ -24,16 +24,34 @@ width: 50%;
 height: 100%;
 `;
 
-export const AddModuleView = styled.div`
+export const AlertArea = styled.div`
 display: flex;
-flex-direction: column;
+justify-content: center;
 align-items: center;
+width: 90%;
+height: 100px;
+margin-top: 10px;
+background-color: #ff7675;
+border: 1px solid red;
+`;
+
+export const AddModuleView = styled.div`
 width: 50%;
 height: 100%;
-padding: 5px 0;
-background-color: #fff;
 overflow-y: auto;
 border-radius: 5px;
+
+&::-webkit-scrollbar {
+    width: 4px;
+}
+
+&::-webkit-scrollbar-track {
+    background-color: #77797E;
+}
+
+&::-webkit-scrollbar-thumb {
+    background-color: #202225;
+}
 `;
 
 export const InputArea = styled.div`
@@ -86,5 +104,6 @@ cursor: pointer;
 
 export const TextAlert = styled.p`
 font-family: 'Helvetica';
-color: #000;
+color: #fff;
+text-align: center;
 `;

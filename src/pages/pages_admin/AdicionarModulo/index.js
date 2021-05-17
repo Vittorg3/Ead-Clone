@@ -11,7 +11,8 @@ import {
     SubmitButton,
     SelectCourses,
     OptionCourse,
-    TextAlert
+    TextAlert,
+    AlertArea
 } from './styled';
 
 import ModuleCard from '../../../components/ModuleCard';
@@ -22,18 +23,31 @@ export default () => {
 
     const [courseLoaded, setCourseLoaded] = useState(false);
 
+    const [nameModule, setNameModule] = useState('');
+
+    const [courseSelected, setCourseSelected] = useState('');
+
+    const [erro, setErro] = useState('');
+    const [activeErro, setActiveErro] = useState(false);
+
     const handleLoadCourses = async () => {
         const courses = await Api.courseAvailable();
         setCourses(courses);
     };
 
     const handleLoadDataCourse = async (nameCourse) => {
+        setCourseSelected(nameCourse);
+
         const dataModule = await Api.dataModule(nameCourse);
 
         if(dataModule.error) {
             setCourseLoaded(false);
             return;
         }
+
+        dataModule.modules.sort((a, b) => {
+            return a.numberModule > b.numberModule ? 1 : a.numberModule < b.numberModule ? -1 : 0;
+        });
 
         setCurrentCourse(dataModule.modules);
 
@@ -47,6 +61,29 @@ export default () => {
 
     const handleClickOption = async (title) => {
         await handleLoadDataCourse(title.toLowerCase());
+    };
+
+    const handleSubmitForm = async () => {
+        const result = await Api.createModule(courseSelected, nameModule);
+
+        if(!result.errors) {
+            window.location.href = "/adicionar/modulo";
+            return;
+        }
+        
+        if(result.errors) {
+            for(let i in result.errors) {
+                if(erro.length > 0) {
+                    setErro(...erro, result.errors[i]);
+
+                } else {
+                    setErro(result.errors[i]);
+                }
+                
+            }
+            setActiveErro(true);
+            return;
+        } 
     };
 
     useEffect(() => {
@@ -74,22 +111,22 @@ export default () => {
                     <InputArea>
                         <Title>Nome do módulo:</Title>
                         <InputForm 
-                            type="number" 
-                            placeholder="Digite o tema principal do módulo"    
+                            type="text" 
+                            placeholder="Digite o tema principal do módulo"
+                            onChange={e => setNameModule(e.target.value)} 
+                            maxLength={31}
                         />
                     </InputArea>
-                    <InputArea>
-                        <Title>Módulo de número:</Title>
-                        <InputForm 
-                            type="text"
-                            placeholder="Digite a posição do módulo"
-                        />
-                    </InputArea>
-                    <SubmitButton>Criar Módulo</SubmitButton>
+                    <SubmitButton onClick={handleSubmitForm}>Criar Módulo</SubmitButton>
+                    {activeErro && 
+                        <AlertArea>
+                            <TextAlert>{erro}</TextAlert>
+                        </AlertArea>
+                    } 
                 </AddModuleForm>
                 <AddModuleView>
                     {courseLoaded === true &&
-                        currentCourse.map((course, k) => (
+                        currentCourse.map((course, k) => ( 
                             <ModuleCard 
                                 key={k}
                                 titleModule={course.titleModule}

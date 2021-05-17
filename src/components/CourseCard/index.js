@@ -12,14 +12,14 @@ import {
 
 export default ({ img, title, course, status }) => {
     const history = useHistory();
-
+    
     const [available, setAvailable] = useState(false);
     
     const handleGoToCourse = () => {
         if(status != 'indisponivel'){
             history.push(`/curso/${course}`);
             return;
-        }
+        } //resolver o problema do titulo da aula
 
         setAvailable(true);
         setTimeout(() => {

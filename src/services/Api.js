@@ -35,10 +35,13 @@ export default {
     dataModule: async (nameCourse) => {
         const token = Cookies.get('token-ead');
         const title = nameCourse.toLowerCase();
-
+    
         if(token) {
-            const res = await api.post('api/admin/course/modules', {
-              token, title
+            const res = await api.get('api/admin/course/modules', {
+                params: {
+                    token,
+                    title
+                }
             });
 
             return res.data;
@@ -126,5 +129,17 @@ export default {
             const res = await api.post('api/admin/course', data);
             return res.data;
         }
+    },
+    createModule: async (courseSelected, nameModule) => {
+        const token = await Cookies.get('token-ead');
+        const id = await Cookies.get('ead-id');
+
+        if(token && id) {
+            const res = await api.post('api/admin/course/module', {token, courseSelected, nameModule});
+            return res.data;
+        }
+    },
+    createLesson: async () => {
+        
     }
 }
