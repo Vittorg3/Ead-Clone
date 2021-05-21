@@ -36,7 +36,7 @@ export default () => {
                 window.location.href = 'https://www.youtube.com.br';
             break;
         }
-    }
+    };
 
     return (
         <Footer>
@@ -60,9 +60,13 @@ export default () => {
               </FooterInfoArea>
               <FooterEmailArea>
                 <EmailArea>
-                    <EmailTitle>Quer receber todas as novidades?</EmailTitle>
-                    <EmailInput type="email" placeholder="Digite seu melhor e-mail"/>
-                    <EmailButton>Cadastrar</EmailButton>
+                    <div>
+                      <EmailTitle>Quer receber todas as novidades?</EmailTitle>
+                      <EmailInput type="email" placeholder="Digite seu melhor e-mail"/>
+                    </div>
+                    <div>
+                      <EmailButton>Cadastrar</EmailButton>
+                    </div>
                 </EmailArea>
               </FooterEmailArea>
               <FooterLinksArea>

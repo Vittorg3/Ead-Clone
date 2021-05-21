@@ -6,6 +6,7 @@ flex-direction: column;
 justify-content: center;
 align-items: center;
 width: 100%;
+min-width: 660px;
 height: 90vh;
 `;
 

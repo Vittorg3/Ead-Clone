@@ -139,7 +139,12 @@ export default {
             return res.data;
         }
     },
-    createLesson: async () => {
-        
+    onWatchedLesson: async (nameCourse, titleModule, lesson) => { //lesson sem acentuação
+        const token = await Cookies.get('token-ead');
+        const id = await Cookies.get('ead-id');
+
+        if(token && id) {
+            await  api.post('api/lesson/watched', {token, id, nameCourse, titleModule, lesson});
+        }
     }
 }

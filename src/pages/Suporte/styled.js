@@ -4,6 +4,7 @@ export const PageArea = styled.div`
 display: flex;
 align-items: center;
 width: 100%;
+min-width: 660px;
 height: 90vh;
 `;
 
@@ -14,6 +15,12 @@ width: 600px;
 height: 500px;
 margin-left: 50px;
 padding: 20px;
+
+@media screen and (max-width: 720px) {
+    width: 100%;
+    margin-left: 0;
+    padding-top: 0;
+}
 `;
 
 export const Title = styled.h2`

@@ -5,8 +5,13 @@ display: flex;
 justify-content: center;
 align-items: center;
 width: 100%;
+min-width: 400px;
 height: 280px;
 background-color: #37393E;
+
+@media screen and (max-width: 900px) {
+    height: 400px;
+}
 `;
 
 export const FooterContainer = styled.div`
@@ -14,6 +19,12 @@ display: flex;
 width: 100%;
 max-width: 1235px;
 height: 100%;
+
+@media screen and (max-width: 900px) {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
 `;
 
 export const FooterInfoArea = styled.div`
@@ -57,7 +68,7 @@ margin-top: 24px;
 `;
 
 export const FooterEmailArea = styled.div`
-flex: 1;
+width: 100%;
 height: 100%;
 `;
 
@@ -86,6 +97,10 @@ outline: 0;
 border: 0;
 font-size: 16px;
 padding-left: 5px;
+
+@media screen and (max-width: 900px) {
+    
+}
 `;
 
 export const EmailButton = styled.button`
@@ -99,6 +114,11 @@ background-color: #000;
 color: #FFF;
 margin-top: 8px;
 cursor: pointer;
+
+@media screen and (max-width: 900px) {
+    width: 90px;
+    margin-left: 10px;
+}
 `;
 
 export const FooterLinksArea = styled.div`

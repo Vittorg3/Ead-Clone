@@ -5,23 +5,45 @@ display: flex;
 align-items: center;
 width: 100%;
 height: 90vh;
+min-width: 660px;
+
+@media screen and (max-width: 760px) {
+    height: 700px;
+}
 `;
 
 export const ProfileArea = styled.div`
 width: 700px;
-height: 500px;
+height: auto;
 margin-left: 60px;
+padding-bottom: 50px;
+
+@media screen and (max-width: 760px) {
+    width: 100%;
+    margin-left: 0;
+    padding-bottom: 0;
+}
 `;
 
 export const Title = styled.h1`
 color: #fff;
 font-family: 'Helvetica';
 font-size: 22px;
+
+@media screen and (max-width: 760px) {
+    padding-left: 10px;
+}
 `;
 
 export const FormArea = styled.div`
 display: flex;
 flex: 1;
+
+@media screen and (max-width: 760px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 `;
 
 export const AvatarArea = styled.div`
@@ -72,6 +94,10 @@ cursor: pointer;
 export const FieldsArea = styled.div`
 width: 50%;
 height: 100%;
+
+@media screen and (max-width: 760px) {
+    width: 80%;
+}
 `;
 
 export const InputArea = styled.div`

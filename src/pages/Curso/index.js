@@ -7,7 +7,10 @@ import {
     CourseModuleArea,
     CourseProgressArea, 
     Title,
+    BarProgressArea,
     BarProgress,
+    Progress,
+    Percent,
     CoursePlayArea,
     CoursePlayTitleArea,
     PlayTitle,
@@ -25,12 +28,12 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import ModuleCard from '../../components/ModuleCard';
 import { useParams } from 'react-router';
 import Api from '../../services/Api';
-import { ContactSupportOutlined } from '@material-ui/icons';
+import Cookies, { set } from 'js-cookie';
 
 export default () => {
     const { nameCurso, nameAula } = useParams();
 
-    const [watched, setWatched] = useState(false);
+    const [watched, setWatched] = useState(false); 
     const [closeModules, setCloseModules] = useState(false);
     const [courseLoaded, setCourseLoaded] = useState(false);
 
@@ -48,17 +51,50 @@ export default () => {
 
     const [lessonChanged, setLessonChanged] = useState(false);
 
+    const [progressCourse, setProgressCourse] = useState(0);
+
+    const progressCoursePercent = () => {
+        if(courseLoaded) {
+            let totalLesson = 0;
+            let watchedLessons = 0;
+
+            course[0].modules.map(module => {
+                totalLesson = watchedLessons + module.lessons.length;
+
+                module.lessons.map(lesson => {
+
+                let watchedLesson = lesson.watched.filter(id => {
+                        return id.id === Cookies.get('ead-id');
+                    });
+
+                    if(watchedLesson.length > 0) {
+                        watchedLessons = watchedLessons + 1;
+                    }
+                });
+
+                let sideBFormule = watchedLessons * 100;
+                let resultFormule = sideBFormule / totalLesson; 
+                
+                setProgressCourse(resultFormule);
+            })
+        }
+    };
+
     const handleCloseModules = () => {
         setCloseModules(true);
-    }
+    };
 
     const handleShowModules = () => {
         setCloseModules(false);
-    }
+    };
 
     const changeLesson = () => {
         window.location.href=`/curso/${nameCurso}/${currentLesson}`;
-    }
+    };
+
+    const watchedLesson = async (titleModule, lesson) => {
+        await Api.onWatchedLesson(titleCourse, titleModule, lesson)
+    };
 
     useEffect(() => {
         async function loadCourse() {
@@ -79,18 +115,19 @@ export default () => {
     useEffect(() => {
         if(!nameAula) {
             course.map(course => {
-                setTitle(course.introduction.title);
+                setTitle(course.modules[0].lessons[0].title);
                 setTitleCourse(course.title);
-                setCurrentLesson('http://localhost:3333/api/video/' + course.introduction.url);
+                setCurrentLesson('http://localhost:3333/api/video/' + course.modules[0].lessons[0].url);
                 setVideoLoaded(true);
+                progressCoursePercent();
             });
 
         } else {
-            const name = nameAula[0].toUpperCase() + nameAula.substr(1);
-            const nameWithoutNumber = name.replace(/[0-999]/g, '');
-            setTitle(nameWithoutNumber.replace(/-/g, " "));
+            setTitle(Cookies.get('title'));
+            setWatched(Cookies.get('watched'));
             setTitleCourse(nameCurso);
             setVideoLoaded(true);
+            progressCoursePercent();
         }
 
         return (() => {
@@ -112,7 +149,15 @@ export default () => {
                     <CourseProgressArea>
                             <InfoCourse>
                                 <Title>{titleCourse}</Title>
-                                <BarProgress />
+                                <BarProgressArea>
+                                    <BarProgress>
+                                        <Progress 
+                                            percent={progressCourse} 
+                                        />
+                                    </BarProgress>
+                                    <Percent>{progressCourse}%</Percent>
+                                </BarProgressArea>
+                                
                             </InfoCourse>
                         {closeModules && 
                             <ShowModuleButton onClick={handleShowModules}>Ver Módulos</ShowModuleButton>
@@ -177,7 +222,8 @@ export default () => {
                                                     numberModule={modules.numberModule}
                                                     titleModule={modules.titleModule}
                                                     lessons={modules.lessons}
-                                                    onWatch={setCurrentLesson} 
+                                                    onWatch={setCurrentLesson}
+                                                    onWatched={watchedLesson}
                                                     onTitleLesson={setTitle}
                                                     change={setLessonChanged}
                                                     onlyView={false}
@@ -195,6 +241,7 @@ export default () => {
                                         titleModule={modules.titleModule}
                                         lessons={modules.lessons}
                                         onWatch={setCurrentLesson} 
+                                        onWatched={watchedLesson}
                                         onTitleLesson={setTitle}
                                         change={setLessonChanged}
                                         onlyView={false}

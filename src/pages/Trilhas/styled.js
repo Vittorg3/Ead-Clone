@@ -6,13 +6,23 @@ flex-direction: column;
 justify-content: center;
 align-items: center;
 width: 100%;
+min-width: 400px;
 height: 85vh;
+
+@media screen and (max-width: 800px) {
+    height: auto;
+    padding: 40px 0;
+}
 `;
 
 export const TrailArea = styled.div`
 width: 95%;
 max-width: 1228px;
 height: 80%;
+
+@media screen and (max-width: 800px) {
+    height: auto;
+}
 `;
 
 export const TrailAbout = styled.div`
@@ -20,6 +30,14 @@ display: flex;
 width: 100%;
 height: 160px;
 background-color: #202225;
+
+@media screen and (max-width: 800px) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    padding: 20px 0;
+}
 `;
 
 export const AboutPhoto = styled.div`
@@ -45,6 +63,11 @@ flex-direction: column;
 justify-content: center;
 width: 450px;
 height: 100%;
+
+@media screen and (max-width: 800px) {
+    width: 100%;
+    padding-left: 20px;
+}
 `;
 
 export const Title = styled.h1`
@@ -63,19 +86,29 @@ line-height: 18px;
 
 export const TrailListArea = styled.div`
 display: flex;
+flex-wrap: wrap;
 justify-content: space-between;
 align-items: center;
 width: 100%;
 margin-top: 20px;
+
+@media screen and (max-width: 800px) {
+    flex-direction: row;
+}
 `;
 
 export const TrailCardArea = styled.div`
 display: flex;
 flex-direction: column;
-width: 400px;
+width: 32%;
 height: 160px;
 background-color: #2F3136;
 cursor: pointer;
+
+@media screen and (max-width: 800px) {
+    width: 100%;
+    margin: 15px 0;
+}
 `;
 
 export const CardHeader = styled.div`

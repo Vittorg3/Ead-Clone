@@ -5,6 +5,7 @@ display: flex;
 justify-content: center;
 align-items: center;
 width: 100%;
+min-width: 410px;
 padding: 40px 0;
 `;
 
@@ -21,6 +22,10 @@ display: flex;
 flex-direction: column;
 width: ${props => props.moduleArea ? '100%' : '70%'};
 height: 100%;
+
+@media screen and (max-width: 974px) {
+    width: 100%;
+}
 `;
 
 export const CourseProgressArea = styled.div`
@@ -56,12 +61,31 @@ font-size: 27px;
 color: #FFF;
 `;
 
+export const BarProgressArea = styled.div`
+display: flex;
+justify-content: center;
+align-items: center;
+`;
+
 export const BarProgress = styled.div`
 width: 160px;
 height: 7px;
 background-color: #37393E;
 border-radius: 20px;
-margin-top: 5px;
+`;
+
+export const Progress = styled.div`
+display: ${props => props.percent !== 0 ? 'flex' : 'none'};
+width: ${props => props.percent}%;
+height: 100%;
+background-color: #00FF00;
+`;
+
+export const Percent = styled.p`
+color: #999999;
+font-size: 11px;
+font-family: 'Helvetica';
+margin-left: 12px;
 `;
 
 export const CoursePlayArea = styled.div`
@@ -69,14 +93,15 @@ display: flex;
 justify-content: center;
 align-items: center;
 width: 97%;
-height: 500px;
+min-width: 350px;
+height: 70%;
 `;
 
 export const CoursePlayTitleArea = styled.div`
 display: flex;
 align-items: center;
 width: 97%;
-height: 50px;
+height: auto;
 margin-top: 3px;
 padding: 0 3px;
 `;
@@ -90,9 +115,15 @@ export const CourseModuleArea = styled.div`
 display: ${props => props.close ? 'none' : 'flex'};
 flex-direction: column;
 flex: 1;
+min-width: 360px;
 background-color: #37393E;
 padding: 30px 20px;
 border-radius: 5px;
+
+@media screen and (max-width: 974px) {
+    position: fixed;
+    right: 0;
+}
 `;
 
 export const CloseModuleArea = styled.div`

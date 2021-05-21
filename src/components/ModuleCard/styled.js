@@ -50,6 +50,7 @@ display: ${props => props.active ? 'flex' : 'none'};
 flex-direction: column;
 align-items: center;
 width: 100%;
+margin: 10px 0;
 `;
 
 export const LessonCardArea = styled.div`
@@ -58,7 +59,6 @@ align-items: center;
 padding: 0 10px;
 width: 90%;
 height: 35px;
-margin-top: 10px;
 border-radius: 5px;
 cursor: pointer;
 
