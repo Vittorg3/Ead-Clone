@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import ReactPlayer from 'react-player';
 
 import {
     PageArea,
@@ -19,11 +20,15 @@ import {
     ShowModuleButton,
     SearchModuleInput,
     LineDividing,
-    ModuleArea
+    ModuleArea,
+    TitleArea,
+    NextLessonArea,
+    ButtonTitle
 } from './styled';
 
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import SkipNextIcon from '@material-ui/icons/SkipNext';
 
 import ModuleCard from '../../components/ModuleCard';
 import { useParams } from 'react-router';
@@ -42,6 +47,7 @@ export default () => {
     const [title, setTitle] = useState('');
     const [titleCourse, setTitleCourse] = useState('');
 
+    const [nextMouseIn, setNextMouseIn] = useState(false);
     const [currentLesson, setCurrentLesson] = useState('');
     const [currentLessonQuery, setCurrentLessonQuery] = useState(`http://localhost:3333/api/video/${nameCurso}/${nameAula}`);
 
@@ -92,6 +98,64 @@ export default () => {
         window.location.href=`/curso/${nameCurso}/${currentLesson}`;
     };
 
+    const nextLesson = async () => {
+        let isFounded = [];
+        let indice = null;
+        
+        course.map(course => {
+            course.modules.map(module => {
+                module.lessons.map(lesson => {
+                    isFounded = [...isFounded, lesson];
+                });
+            });
+        });
+
+        if(isFounded.length > 0) {
+            indice = isFounded.findIndex(i => i.url === nameAula);
+        }
+
+        const newUrlLesson = isFounded[indice + 1];
+
+        let titleMod = ''
+        
+        if(newUrlLesson !== undefined) {
+            course[0].modules.map(module => {
+                module.lessons.map(lesson => {
+                    if(lesson.title === newUrlLesson.title) {
+                        titleMod = module.titleModule;
+                    }
+                });
+            });
+        }
+        
+
+        if(newUrlLesson !== undefined) {
+            const watched = await verifyIfWatched(newUrlLesson.watched);
+
+            Cookies.set('title', newUrlLesson.title);
+            Cookies.set('watched', watched);
+            watchedLesson(titleMod, newUrlLesson.title);
+
+            window.location.href = `http://localhost:3000/curso/${nameCurso}/${newUrlLesson.url}`;
+        }
+        //formatar os decimais
+    };
+
+    
+    const verifyIfWatched = (ids) => {
+        const userId = Cookies.get('ead-id');
+        
+        if(!ids) {
+            return false;
+        }
+
+        const isWatched = ids.filter(user => {
+            return user.id === userId;
+        });
+        
+        return isWatched.length > 0 ? true : false;
+    };
+
     const watchedLesson = async (titleModule, lesson) => {
         await Api.onWatchedLesson(titleCourse, titleModule, lesson)
     };
@@ -123,6 +187,7 @@ export default () => {
             });
 
         } else {
+            console.log(course[0]);
             setTitle(Cookies.get('title'));
             setWatched(Cookies.get('watched'));
             setTitleCourse(nameCurso);
@@ -155,7 +220,7 @@ export default () => {
                                             percent={progressCourse} 
                                         />
                                     </BarProgress>
-                                    <Percent>{progressCourse}%</Percent>
+                                    <Percent>{progressCourse.toFixed(0)}%</Percent>
                                 </BarProgressArea>
                                 
                             </InfoCourse>
@@ -165,23 +230,51 @@ export default () => {
                     </CourseProgressArea>
                     <CoursePlayArea>
                     {videoLoaded && 
-                        <video width="98%" height="98%" controls>
-                            <source src={nameAula != undefined ? currentLessonQuery : currentLesson} type="video/mp4"></source>
-                        </video>
+                        <ReactPlayer 
+                            width="98%"
+                            height="98%"
+                            controls
+                            onContextMenu={(e) =>  e.preventDefault()}
+                            config={{
+                                file: {
+                                    attributes: {
+                                        controlsList:  'nodownload'
+                                    }
+                                }
+                            }}
+                            url={nameAula != undefined ? currentLessonQuery : currentLesson}
+                        />
                     }  
                     </CoursePlayArea>
                     <CoursePlayTitleArea>
-                        <PlayTitle>{title}</PlayTitle>
-                        <CheckCircleIcon 
-                            style={
-                                {
-                                    width: 30, 
-                                    height: 30, 
-                                    color: watched ? '#00FF00' : '#CCCCCC',
-                                    marginLeft: 8
-                                }
-                            } 
-                        />
+                        <TitleArea>
+                            <PlayTitle>{title}</PlayTitle>
+                            <CheckCircleIcon 
+                                style={
+                                    {
+                                        width: 30, 
+                                        height: 30, 
+                                        color: watched ? '#00FF00' : '#CCCCCC',
+                                        marginLeft: 8
+                                    }
+                                } 
+                            />
+                        </TitleArea>
+                        <NextLessonArea 
+                            onMouseEnter={() => setNextMouseIn(true)}
+                            onMouseLeave={() => setNextMouseIn(false)}
+                            onClick={nextLesson}
+                        >
+                            <ButtonTitle mouseIn={nextMouseIn}>Próxima aula</ButtonTitle>
+                            <SkipNextIcon 
+                                style={{
+                                    width: 34,
+                                    height: 34,
+                                    color: nextMouseIn ? '#fff' : '#8F9296'
+                                }}
+                            />
+                        </NextLessonArea>
+                        
                     </CoursePlayTitleArea>
                 </CourseVideoArea>
                 <CourseModuleArea close={closeModules}>
@@ -199,7 +292,11 @@ export default () => {
 
                         Fechar
                     </CloseModuleArea>
-                    <SearchModuleInput type="search" placeholder="Busca" onChange={e => setSearch(e.target.value)}/>
+                    <SearchModuleInput 
+                        type="text" 
+                        placeholder="Busca" 
+                        onChange={e => setSearch(e.target.value)}
+                    />
                     <Title 
                         style={
                             {
@@ -216,7 +313,7 @@ export default () => {
                         {search.trim() != '' && 
                             course.map(course => (
                                 course.modules.map((modules, k) => {
-                                    if(modules.lessons[k].title.toLowerCase() === search.toLowerCase()) {
+                                    if(modules.lessons[k].title.toLowerCase().indexOf(search.toLowerCase()) !== -1) {
                                         return <ModuleCard 
                                                     key={k} 
                                                     numberModule={modules.numberModule}

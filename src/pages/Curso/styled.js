@@ -14,7 +14,13 @@ display: flex;
 width: 95%;
 border-radius: 5px;
 background-color: #202225;
-padding: 30px 20px;
+padding: 30px 0px;
+padding-right: 30px;
+padding-left: 10px;
+
+@media screen and (max-width: 760px) {
+    width: 98%;
+}
 `;
 
 export const CourseVideoArea = styled.div`
@@ -92,13 +98,14 @@ export const CoursePlayArea = styled.div`
 display: flex;
 justify-content: center;
 align-items: center;
-width: 97%;
+width: 99%;
 min-width: 350px;
 height: 70%;
 `;
 
 export const CoursePlayTitleArea = styled.div`
 display: flex;
+justify-content: space-between;
 align-items: center;
 width: 97%;
 height: auto;
@@ -159,4 +166,26 @@ display: flex;
 flex-direction: column;
 flex: 1;
 padding: 17px 0;
+`;
+
+export const TitleArea = styled.div`
+display: flex;
+justify-content: left;
+align-items: center;
+padding-left: 5px; 
+`;
+
+export const NextLessonArea = styled.div`
+display: flex;
+align-items: center;
+cursor: pointer;
+width: 130px;
+min-width: 130px;
+`;
+
+export const ButtonTitle = styled.p`
+font-family: 'Helvetica';
+font-size: 15px;
+padding-right: 5px;
+color: ${props => props.mouseIn ? '#fff' : '#8F9296'};
 `;

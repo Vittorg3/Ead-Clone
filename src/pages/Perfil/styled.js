@@ -5,7 +5,7 @@ display: flex;
 align-items: center;
 width: 100%;
 height: 90vh;
-min-width: 660px;
+min-width: 400px;
 
 @media screen and (max-width: 760px) {
     height: 700px;

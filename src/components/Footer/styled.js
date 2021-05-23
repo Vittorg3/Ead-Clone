@@ -6,7 +6,7 @@ justify-content: center;
 align-items: center;
 width: 100%;
 min-width: 400px;
-height: 280px;
+height: 255px;
 background-color: #37393E;
 
 @media screen and (max-width: 900px) {
@@ -31,9 +31,13 @@ export const FooterInfoArea = styled.div`
 display: flex;
 flex-direction: column;
 justify-content: center;
-align-items: center;
-width: 200px;
+align-items: start;
+width: 300px;
 height: 100%;
+
+@media screen and (max-width: 900px) {
+    align-items: center;
+}
 `;
 
 export const InfoArea = styled.div`
@@ -61,10 +65,14 @@ font-family: 'Helvetica';
 
 export const InfoContact = styled.div`
 display: flex;
-justify-content: center;
 align-items: center;
 width: 100%;
 margin-top: 24px;
+margin-left: 2px;
+
+@media screen and (max-width: 900px) {
+    justify-content: center;
+}
 `;
 
 export const FooterEmailArea = styled.div`
@@ -125,7 +133,7 @@ export const FooterLinksArea = styled.div`
 display: flex;
 justify-content: center;
 align-items: center;
-width: 200px;
+width: 300px;
 height: 100%;
 `;
 
