@@ -109,13 +109,29 @@ export default {
         await data.append("id", id);
         await data.append("avatar", avatar);
 
+        let updated = false;
+
         if(token && id) {
             const res = await api.post('api/user/avatar', data, {
                 headers: {
                     Authorization: token
+                },
+                onUploadProgress: ProgressEvent => {
+                    const { total, loaded } = ProgressEvent;
+
+                    let percent = Math.floor((loaded * 100) / total);
+
+                    if(percent === 100) {
+                        updated = true;
+                    }
                 }
             });
-            return res;
+
+            if(updated === true) {
+                console.log(res);
+                return res;
+            }
+            
         }
     },
     createCourse: async (data) => {

@@ -189,3 +189,32 @@ font-size: 15px;
 padding-right: 5px;
 color: ${props => props.mouseIn ? '#fff' : '#8F9296'};
 `;
+
+export const FilesLessonArea = styled.div`
+display: flex;
+flex-direction: column;
+justify-content: flex-end;
+width: 100%;
+height: 70px;
+padding-left: 5px;
+`;
+
+export const FileLessonLink = styled.a`
+display: flex;
+align-items: center;
+text-decoration: none;
+max-width: 180px;
+border-radius: 5px;
+padding: 5px;
+
+&:hover {
+    background-color: #1A1B1E;
+}
+`;
+
+export const FileName = styled.p`
+font-family: 'Helvetica';
+font-size: 14px;
+margin-left: 4px;
+color: #fff;
+`;

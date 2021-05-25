@@ -23,12 +23,16 @@ import {
     ModuleArea,
     TitleArea,
     NextLessonArea,
-    ButtonTitle
+    ButtonTitle,
+    FilesLessonArea,
+    FileLessonLink,
+    FileName
 } from './styled';
 
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import SkipNextIcon from '@material-ui/icons/SkipNext';
+import PlayForWorkIcon from '@material-ui/icons/PlayForWork';
 
 import ModuleCard from '../../components/ModuleCard';
 import { useParams } from 'react-router';
@@ -54,8 +58,10 @@ export default () => {
     const [search, setSearch] = useState('');
 
     const [videoLoaded, setVideoLoaded] = useState(false);
-
     const [lessonChanged, setLessonChanged] = useState(false);
+    const [lessonHasFile, setLessonHasFile] = useState(false);
+
+    const [linkFileLesson, setLinkFileLesson] = useState('');
 
     const [progressCourse, setProgressCourse] = useState(0);
 
@@ -138,7 +144,6 @@ export default () => {
 
             window.location.href = `http://localhost:3000/curso/${nameCurso}/${newUrlLesson.url}`;
         }
-        //formatar os decimais
     };
 
     
@@ -158,6 +163,35 @@ export default () => {
 
     const watchedLesson = async (titleModule, lesson) => {
         await Api.onWatchedLesson(titleCourse, titleModule, lesson)
+    };
+
+    const hasFileLesson = () => {
+        let isFounded = [];
+        
+        course.map(course => {
+            course.modules.map(module => {
+                module.lessons.map(lesson => {
+                    isFounded = [...isFounded, lesson];
+                });
+            });
+        });
+
+        if(isFounded.length > 0) {
+            const hasFile = isFounded.filter(lesson => {
+                return lesson.title === title;
+            });
+
+            if(hasFile.length > 0) {
+                if(hasFile[0].file) {
+                    setLessonHasFile(true);
+                    setLinkFileLesson(hasFile[0].file);
+                }
+            }
+        }
+    };
+
+    const hasToken = () => {
+        return Cookies.get('token-ead');
     };
 
     useEffect(() => {
@@ -193,6 +227,7 @@ export default () => {
             setTitleCourse(nameCurso);
             setVideoLoaded(true);
             progressCoursePercent();
+            hasFileLesson();
         }
 
         return (() => {
@@ -274,8 +309,23 @@ export default () => {
                                 }}
                             />
                         </NextLessonArea>
-                        
                     </CoursePlayTitleArea>
+                    {lessonHasFile && 
+                    <FilesLessonArea> 
+                        <FileLessonLink href={`http://localhost:3333/api/download/${linkFileLesson}?token=${hasToken()}`}>
+                            <PlayForWorkIcon 
+                                style={
+                                    {
+                                        width: 35,
+                                        height: 35,
+                                        color: '#fff'
+                                    }
+                                }
+                            />
+                            <FileName>Material necessário</FileName>
+                        </FileLessonLink>
+                    </FilesLessonArea>
+                    }
                 </CourseVideoArea>
                 <CourseModuleArea close={closeModules}>
                     <CloseModuleArea onClick={handleCloseModules}>

@@ -68,9 +68,18 @@ export default () => {
     };
 
     const handleSubmitAvatar = async (e) => {
+        if(e.target.files[0].size > 35000000) {
+            alert('Imagem excede o limite de 35(mb)');
+            return;
+        }
+
         const res = await Api.uploadAvatar(e.target.files[0]);
         localStorage.setItem('user', JSON.stringify(res.data.user));
-        window.location.href = "/perfil";
+        
+        if(res.data) {
+            window.location.href = "/perfil";
+        }
+        
     };
 
     useEffect(() => {
