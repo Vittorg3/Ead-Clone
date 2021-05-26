@@ -9,6 +9,7 @@ import {
     OptionDescription
 } from './styled';
 
+import InsertDriveFileIcon from '@material-ui/icons/InsertDriveFile';
 import OndemandVideoIcon from '@material-ui/icons/OndemandVideo';
 import AddToQueueIcon from '@material-ui/icons/AddToQueue';
 import AirplayIcon from '@material-ui/icons/Airplay';
@@ -36,6 +37,9 @@ export default () => {
         history.push('/adicionar/aula');
     };
 
+    const handleToAddFileLesson = () => {
+        history.push('/adicionar/material/aula')
+    };
     return (
         <PageArea>
             <PanelArea>
@@ -50,6 +54,10 @@ export default () => {
                 <OptionPanel onClick={handleToAddLesson}>
                     <AddToQueueIcon style={configPropertyIcon}/>
                     <OptionDescription>Adicionar Aula</OptionDescription>
+                </OptionPanel>
+                <OptionPanel onClick={handleToAddFileLesson}>
+                    <InsertDriveFileIcon style={configPropertyIcon}/>
+                    <OptionDescription>Adicionar Materiais</OptionDescription>
                 </OptionPanel>
             </PanelArea>
         </PageArea>

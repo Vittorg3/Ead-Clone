@@ -28,6 +28,7 @@ import PainelPage from './pages/pages_admin/Painel';
 import AdicionarCursoPage from './pages/pages_admin/AdicionarCurso';
 import AdicionarModuloPage from './pages/pages_admin/AdicionarModulo';
 import AdicionarAulaPage from './pages/pages_admin/AdicionarAula';
+import AdicionarMaterialPage from './pages/pages_admin/AdicionarMaterial';
 
 import auth from './helpers/Authentication';
 
@@ -107,6 +108,9 @@ export default () => {
               </RouteAdmin>
               <RouteAdmin exact path="/adicionar/aula">
                 <AdicionarAulaPage />
+              </RouteAdmin>
+              <RouteAdmin exact path="/adicionar/material/aula">
+                <AdicionarMaterialPage />
               </RouteAdmin>
               <Route path="/*">
                 <NaoEncontradoPage />
