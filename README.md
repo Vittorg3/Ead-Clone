@@ -12,9 +12,9 @@ __O objetivo desse projeto foi colocar em prática os conhecimentos adquiridos d
 ✔️ **React-Router-Dom**\
 ✔️ **React-Tooltip**\
 ✔️ **Styled-Components**\
-✔️ **React-Player**
-✔️ **Axios**
-✔️ **Js-Cookie**
+✔️ **React-Player**\
+✔️ **Axios**\
+✔️ **Js-Cookie**\
 
 ## 🔖 Requisitos
 ### para executar o projeto da maneira certa, é necessário:
