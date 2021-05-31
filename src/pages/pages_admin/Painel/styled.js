@@ -22,11 +22,12 @@ display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
-width: 45%;
+width: 220px;
 height: 45%;
 transition: all ease .2s;
 background-color: #202225;
 cursor: pointer;
+margin-top: 10px;
 
 &:hover {
     background-color: #202220;
