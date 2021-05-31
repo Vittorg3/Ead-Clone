@@ -161,6 +161,10 @@ export default () => {
         return isWatched.length > 0 ? true : false;
     };
 
+    const saveInfoLessonCurrent = (isWatched) => {
+        Cookies.set('watched', isWatched);
+    };
+
     const watchedLesson = async (titleModule, lesson) => {
         await Api.onWatchedLesson(titleCourse, titleModule, lesson)
     };
@@ -212,22 +216,33 @@ export default () => {
 
     useEffect(() => {
         if(!nameAula) {
-            course.map(course => {
-                setTitle(course.modules[0].lessons[0].title);
-                setTitleCourse(course.title);
-                setCurrentLesson('http://localhost:3333/api/video/' + course.modules[0].lessons[0].url);
-                setVideoLoaded(true);
-                progressCoursePercent();
+            course.map(course => { 
+                Cookies.set('title', course.modules[0].lessons[0].title);
+                Cookies.set('watched', verifyIfWatched(course.modules[0].lessons[0].watched));
+                window.location.href=`/curso/${nameCurso}/${course.modules[0].lessons[0].url}`;
             });
 
         } else {
-            console.log(course[0]);
             setTitle(Cookies.get('title'));
-            setWatched(Cookies.get('watched'));
+            const isWatched = Cookies.get('watched');
+
+            if(isWatched === 'true') {
+                setWatched(true);
+            } else {
+                setWatched(false);
+            }
+            
             setTitleCourse(nameCurso);
             setVideoLoaded(true);
             progressCoursePercent();
             hasFileLesson();
+
+            course.map(course => { 
+                Cookies.set('title', course.modules[0].lessons[0].title);
+                Cookies.set('watched', verifyIfWatched(course.modules[0].lessons[0].watched));
+                watchedLesson(course.modules[0].titleModule, course.modules[0].lessons[0].title);
+            });
+            
         }
 
         return (() => {
@@ -245,6 +260,8 @@ export default () => {
     return (
         <PageArea>
             <CourseArea>
+                {videoLoaded && 
+                <>
                 <CourseVideoArea moduleArea={closeModules}>
                     <CourseProgressArea>
                             <InfoCourse>
@@ -398,6 +415,8 @@ export default () => {
                         }
                     </ModuleArea>
                 </CourseModuleArea>
+                </>
+                }
             </CourseArea>
         </PageArea>
     )

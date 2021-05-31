@@ -67,7 +67,7 @@ export default ({ numberModule, titleModule, lessons, onWatch, onWatched, onTitl
                     <ModuleName>{titleModule}</ModuleName>
                 </TitleArea>
                 <CountLessonsArea>
-                    {lessons.length} <CountText>aulas</CountText>
+                    {lessons.length} <CountText>{lessons.length > 1 ? 'aulas' : 'aula'}</CountText>
                 </CountLessonsArea>
             </ModuleInfoArea>
             {onlyView === false &&

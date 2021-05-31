@@ -26,7 +26,7 @@ export default () => {
 
     const changeTitleAndName = (e) => {
         setTitle(e.target.value);
-        setName(e.target.value.toLowerCase());
+        setName(e.target.value.toLowerCase()); //tirar os espações que sobram
     };
 
     const handleUploadImage = (e) => {

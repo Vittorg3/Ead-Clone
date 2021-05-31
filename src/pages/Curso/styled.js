@@ -6,12 +6,14 @@ justify-content: center;
 align-items: center;
 width: 100%;
 min-width: 410px;
+min-height: 90vh;
 padding: 40px 0;
 `;
 
 export const CourseArea = styled.div`
 display: flex;
 width: 95%;
+min-height: 80vh;
 border-radius: 5px;
 background-color: #202225;
 padding: 30px 0px;
@@ -20,6 +22,7 @@ padding-left: 10px;
 
 @media screen and (max-width: 760px) {
     width: 98%;
+    min-height: 70vh
 }
 `;
 
@@ -102,7 +105,7 @@ width: 99%;
 min-width: 350px;
 height: 70%;
 `;
-
+//criptografar cookies
 export const CoursePlayTitleArea = styled.div`
 display: flex;
 justify-content: space-between;
@@ -116,6 +119,7 @@ padding: 0 3px;
 export const PlayTitle = styled.h1`
 font-family: 'Helvetica';
 color: #FFF;
+padding-left: 5px;
 `;
 
 export const CourseModuleArea = styled.div`

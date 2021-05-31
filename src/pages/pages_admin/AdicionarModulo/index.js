@@ -64,7 +64,12 @@ export default () => {
     };
 
     const handleSubmitForm = async () => {
-        const result = await Api.createModule(courseSelected, nameModule);
+        if(nameModule.trim() === '') {
+            alert('preencha um nome válido para o módulo');
+            return;
+        }
+        
+        const result = await Api.createModule(courseSelected, nameModule.trim());
 
         if(!result.errors) {
             window.location.href = "/adicionar/modulo";
