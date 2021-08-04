@@ -162,5 +162,24 @@ export default {
         if(token && id) {
             await  api.post('api/lesson/watched', {token, id, nameCourse, titleModule, lesson});
         }
+    },
+    dataLesson: async (nameCourse, nameModule, nameLesson) => {
+        const token = await Cookies.get('token-ead');
+        const id = await Cookies.get('ead-id');
+
+        if(token && id) {
+            const res = await api.get('api/admin/data/lesson', {
+                headers: {
+                    authorization: token
+                },
+                params: {
+                    course: nameCourse,
+                    titleModule: nameModule,
+                    titleLesson: nameLesson
+                }
+            })
+
+            return res.data.modules;
+        }
     }
 }
